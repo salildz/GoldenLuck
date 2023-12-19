@@ -4,16 +4,16 @@
 
 // Constructor definition
 Deck::Deck() {
-    cards = gcnew System::Collections::Generic::List<Card^>();
+    cards = gcnew List<Card^>();
     createDeck();
 }
 
 // Function to create a standard deck of cards
 void Deck::createDeck() {
-    array<System::Char>^ signs = { 'H', 'D', 'C', 'S' }; // Hearts, Diamonds, Clubs, Spades
+    array<char>^ signs = { 'H', 'D', 'C', 'S' }; // Hearts, Diamonds, Clubs, Spades
     const int numCards = 13; // Cards from 1 to 13
 
-    for each (System::Char sign in signs) {
+    for each (char sign in signs) {
         for (int num = 1; num <= numCards; ++num) {
             Card^ newCard = gcnew Card(num, sign);
             cards->Add(newCard);
@@ -23,7 +23,7 @@ void Deck::createDeck() {
 
 // Function to shuffle the deck
 void Deck::shuffleDeck() {
-    System::Random^ rng = gcnew System::Random();
+    Random^ rng = gcnew Random();
     int n = cards->Count;
     while (n > 1) {
         n--;

@@ -1,11 +1,13 @@
 #pragma once
 #include "Card.h"
 #include <vcclr.h>
-#include <vector>
+
+using namespace System;
+using namespace System::Collections::Generic;
 
 public ref class Deck {
 private:
-    System::Collections::Generic::List<Card^>^ cards; // List to hold cards in the deck
+    List<Card^>^ cards; // List to hold cards in the deck
 
 public:
     Deck(); // Constructor to create a deck of cards
