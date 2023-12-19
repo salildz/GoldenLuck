@@ -1,5 +1,4 @@
 #include "Card.h"
-
 #include <iostream>
 
 // Constructor definition
@@ -9,7 +8,7 @@ Card::Card() {
 }
 
 // Constructor with parameters definition
-Card::Card(int num, System::Char sign) {
+Card::Card(int num, char sign) {
     cardNum = num;
     cardSign = sign;
 }
@@ -25,16 +24,16 @@ void Card::setCardNum(int num) {
 }
 
 // Getter for cardSign
-System::Char Card::getCardSign() {
+char Card::getCardSign() {
     return cardSign;
 }
 
 // Setter for cardSign
-void Card::setCardSign(System::Char sign) {
+void Card::setCardSign(char sign) {
     cardSign = sign;
 }
 
 // Function to display card details
-void Card::displayCard() {
-    System::Console::WriteLine("Card Number: {0}, Card Sign: {1}", cardNum, cardSign);
+Card^ Card::getCard() {
+    return this;
 }
