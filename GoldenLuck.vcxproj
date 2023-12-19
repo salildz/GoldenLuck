@@ -123,6 +123,7 @@
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CoinFlip.cpp" />
+    <ClCompile Include="Deck.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Poker.cpp" />
     <ClCompile Include="RockPaperScissors.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="CoinFlip.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
