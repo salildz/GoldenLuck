@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="CoinFlip.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Poker.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="BlackJack.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Card.h" />
     <ClInclude Include="CoinFlip.h">
       <FileType>CppForm</FileType>
     </ClInclude>
