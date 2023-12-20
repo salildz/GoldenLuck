@@ -1,17 +1,19 @@
 #pragma once
-#include "Card.h"
-#include <vcclr.h>
+#ifndef DECK_H
+#define DECK_H
 
-using namespace System;
-using namespace System::Collections::Generic;
+#include "card.h"
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <iostream>
 
-public ref class Deck {
-private:
-    List<Card^>^ cards; // List to hold cards in the deck
-
+class Deck {
 public:
-    Deck(); // Constructor to create a deck of cards
-    void createDeck(); // Function to create a standard deck of cards
-    void shuffleDeck(); // Function to shuffle the deck
-    Card^ dealCard(); // Function to deal a card from the deck
+    Deck();
+    std::vector<Card> cards;
+    void shuffleDeck();
+    void resetDeck();
 };
+
+#endif // DECK_H

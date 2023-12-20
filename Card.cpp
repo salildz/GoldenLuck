@@ -1,39 +1,49 @@
-#include "Card.h"
-#include <iostream>
+#include "card.h"
 
-// Constructor definition
 Card::Card() {
-    cardNum = 0;
-    cardSign = ' ';
+    suit = ' ';
+    rank = 0;
 }
 
-// Constructor with parameters definition
-Card::Card(int num, char sign) {
-    cardNum = num;
-    cardSign = sign;
+Card::Card(char newSuit, int newRank) {
+    if (newSuit != 'H' && newSuit != 'D' && newSuit != 'C' && newSuit != 'S') {
+        throw std::invalid_argument("Invalid suit!");
+    }
+    else {
+        suit = newSuit;
+    }
+
+    if (newRank < 1 || newRank > 13) {
+        throw std::invalid_argument("Invalid rank!");
+    }
+    else {
+        rank = newRank;
+    }
+
 }
 
-// Getter for cardNum
-int Card::getCardNum() {
-    return cardNum;
+char Card::getSuit() {
+    return suit;
 }
 
-// Setter for cardNum
-void Card::setCardNum(int num) {
-    cardNum = num;
+void Card::setSuit(char newSuit) {
+    if (newSuit != 'H' && newSuit != 'D' && newSuit != 'C' && newSuit != 'S') {
+        throw std::invalid_argument("Invalid suit!");
+    }
+    else {
+        suit = newSuit;
+    }
 }
 
-// Getter for cardSign
-char Card::getCardSign() {
-    return cardSign;
+int Card::getRank() {
+    return rank;
 }
 
-// Setter for cardSign
-void Card::setCardSign(char sign) {
-    cardSign = sign;
-}
-
-// Function to display card details
-Card^ Card::getCard() {
-    return this;
+void Card::setRank(int newRank) {
+    if (newRank < 1 || newRank > 13) {
+        throw std::invalid_argument("Invalid rank!");
+    }
+    else {
+        rank = newRank;
+    }
 }

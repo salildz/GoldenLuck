@@ -24,12 +24,6 @@ namespace GoldenLuck {
 			//TODO: Add the constructor code here
 			//
 		}
-		void startGame(); // Function to start the game
-		void dealInitialCards(); // Function to deal initial cards to player and dealer
-		void playerTurn(); // Function to control the player's turn
-		void dealerTurn(); // Function to control the dealer's turn
-		void displayHands(bool showAll); // Function to display player and dealer hands
-		void determineWinner(); // Function to determine the winner of the game
 	
 	protected:
 		/// <summary>
@@ -44,9 +38,6 @@ namespace GoldenLuck {
 		}
 
 	private:
-		Deck^ deck;
-		System::Collections::Generic::List<Card^>^ playerHand;
-		System::Collections::Generic::List<Card^>^ dealerHand;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
