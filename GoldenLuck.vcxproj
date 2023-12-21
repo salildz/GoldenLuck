@@ -146,6 +146,7 @@
     <ClInclude Include="Poker.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RockPaperScissors.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -172,6 +173,9 @@
     <EmbeddedResource Include="Slot.resx">
       <DependentUpon>Slot.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GoldenLuck.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

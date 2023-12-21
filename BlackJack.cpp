@@ -30,7 +30,7 @@ namespace GoldenLuck {
 		dealHiddenCard(dealerHand);
 		dealCard(userHand);
 		dealCard(dealerHand);
-		int j = 1;
+		/*int j = 1;
 		for each (Card ^ card in deck->cards) {
 			Console::WriteLine("{0} {1}  {2}", card->getSuit(), card->getRank(), j++);
 		}
@@ -42,7 +42,7 @@ namespace GoldenLuck {
 		Console::Write("User: ");
 		for each (Card ^ card in userHand->getHand()) {
 			Console::WriteLine("{0} {1}", card->getSuit(), card->getRank());
-		}
+		}*/
 	}
 
 	void BlackJack::dealHiddenCard(Hand^ hand) {
