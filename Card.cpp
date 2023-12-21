@@ -46,3 +46,4 @@ void Card::setRank(int newRank) {
         rank = newRank;
     }
 }
+ 

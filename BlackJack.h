@@ -33,27 +33,23 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::Button^ btnStay;
 	private: System::Windows::Forms::Panel^ pnlGame;
 	private: System::Windows::Forms::Button^ btnStart;
-
-
-
-
-
+	private: System::Windows::Forms::Label^ lblUser;
+	private: System::Windows::Forms::Label^ lblDealer;
+	private: System::Windows::Forms::Label^ lblResult;
 
 
 
 	public:
-
-	public:
-
-	public:
-
 
 		int bet;
 		void initializeGame();
+		void resetGame();
 		void dealHiddenCard(Hand^ hand);
 		void dealCard(Hand^ hand);
 		int reduceDealerAce();
 		int reduceUserAce();
+		bool isBlackJack(Hand^ hand);
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -82,7 +78,11 @@ namespace GoldenLuck {
 			this->btnHit = (gcnew System::Windows::Forms::Button());
 			this->btnStay = (gcnew System::Windows::Forms::Button());
 			this->pnlGame = (gcnew System::Windows::Forms::Panel());
+			this->lblResult = (gcnew System::Windows::Forms::Label());
+			this->lblUser = (gcnew System::Windows::Forms::Label());
+			this->lblDealer = (gcnew System::Windows::Forms::Label());
 			this->btnStart = (gcnew System::Windows::Forms::Button());
+			this->pnlGame->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// btnHit
@@ -105,6 +105,7 @@ namespace GoldenLuck {
 			this->btnHit->TabIndex = 0;
 			this->btnHit->Text = L"Hit";
 			this->btnHit->UseVisualStyleBackColor = false;
+			this->btnHit->Click += gcnew System::EventHandler(this, &BlackJack::btnHit_Click);
 			// 
 			// btnStay
 			// 
@@ -125,13 +126,47 @@ namespace GoldenLuck {
 			this->btnStay->TabIndex = 1;
 			this->btnStay->Text = L"Stay";
 			this->btnStay->UseVisualStyleBackColor = false;
+			this->btnStay->Click += gcnew System::EventHandler(this, &BlackJack::btnStay_Click);
 			// 
 			// pnlGame
 			// 
+			this->pnlGame->Controls->Add(this->lblResult);
+			this->pnlGame->Controls->Add(this->lblUser);
+			this->pnlGame->Controls->Add(this->lblDealer);
 			this->pnlGame->Location = System::Drawing::Point(12, 12);
 			this->pnlGame->Name = L"pnlGame";
 			this->pnlGame->Size = System::Drawing::Size(920, 530);
 			this->pnlGame->TabIndex = 2;
+			// 
+			// lblResult
+			// 
+			this->lblResult->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 72, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(162)));
+			this->lblResult->Location = System::Drawing::Point(0, 164);
+			this->lblResult->Name = L"lblResult";
+			this->lblResult->Size = System::Drawing::Size(920, 202);
+			this->lblResult->TabIndex = 2;
+			this->lblResult->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// lblUser
+			// 
+			this->lblUser->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(162)));
+			this->lblUser->Location = System::Drawing::Point(820, 505);
+			this->lblUser->Name = L"lblUser";
+			this->lblUser->Size = System::Drawing::Size(100, 25);
+			this->lblUser->TabIndex = 1;
+			this->lblUser->Text = L"User: ";
+			// 
+			// lblDealer
+			// 
+			this->lblDealer->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(162)));
+			this->lblDealer->Location = System::Drawing::Point(802, 0);
+			this->lblDealer->Name = L"lblDealer";
+			this->lblDealer->Size = System::Drawing::Size(118, 25);
+			this->lblDealer->TabIndex = 0;
+			this->lblDealer->Text = L"Dealer: ";
 			// 
 			// btnStart
 			// 
@@ -168,12 +203,14 @@ namespace GoldenLuck {
 			this->Name = L"BlackJack";
 			this->Text = L"BlackJack";
 			this->Load += gcnew System::EventHandler(this, &BlackJack::BlackJack_Load);
+			this->pnlGame->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
 		void loadDealerCardImages()
 		{
 			if (dealerHand->getHiddenCard() == nullptr) {
+				pnlGame->Controls->Clear();
 				array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
 
 				// PictureBox kontrollerine resim atanmasý
@@ -186,8 +223,10 @@ namespace GoldenLuck {
 					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
 					pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larý pnlGame panele ekler
 				}
+				lblDealer->Text = "Dealer: " + dealerHand->getSum();
 			}
 			else {
+				//kapalý kart
 				PictureBox^ cardPictureBox1 = gcnew PictureBox();
 				cardPictureBox1->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
 				cardPictureBox1->Location = Point(0 * 110, 10); // PictureBox'larýn konumu
@@ -202,7 +241,11 @@ namespace GoldenLuck {
 				cardPictureBox2->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
 				cardPictureBox2->Image = Image::FromFile("cards\\" + dealerHand->getHand()[0]->getRank() + "-" + dealerHand->getHand()[0]->getSuit() + ".png"); // Resmi PictureBox'a atar
 				pnlGame->Controls->Add(cardPictureBox2); // PictureBox'larý pnlGame panele ekler
+				int temp = dealerHand->getSum() - dealerHand->getHiddenCard()->getRank();
+				lblDealer->Text = "Dealer: " + temp;
 			}
+			pnlGame->Controls->Add(lblDealer);
+
 
 		}
 		void loadUserCardImages()
@@ -221,21 +264,118 @@ namespace GoldenLuck {
 				pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'larý pnlGame panele ekler
 
 			}
+			pnlGame->Controls->Add(lblUser);
+			if (userHand->getSum() > 21) {
+				lblUser->Text = "User: " + reduceUserAce();
+			}
+			else {
+				lblUser->Text = "User: " + userHand->getSum();
+			}
 
+		}
+		void endGame() {
+			if (reduceUserAce() > 21) {
+				lblResult->Text = "You Lose!";
+				btnHit->Enabled = false;
+				btnStay->Enabled = false;
+				faceUpDealerHand();
+				
+			}
+			else if (reduceDealerAce() > 21) {
+				lblResult->Text = "You Win!";
+				btnHit->Enabled = false;
+				btnStay->Enabled = false;
+				faceUpDealerHand();
+				
+			}
+			else if (reduceUserAce() == reduceDealerAce()) {
+				lblResult->Text = "Tie!";
+				btnHit->Enabled = false;
+				btnStay->Enabled = false;
+				faceUpDealerHand();
+				
+			}
+			else if (reduceUserAce() > reduceDealerAce()) {
+				lblResult->Text = "You Win!";
+				btnHit->Enabled = false;
+				btnStay->Enabled = false;
+				faceUpDealerHand();
+				
+			}
+			else if (reduceUserAce() < reduceDealerAce()) {
+				lblResult->Text = "You Lose!";
+				btnHit->Enabled = false;
+				btnStay->Enabled = false;
+				faceUpDealerHand();
+				
+			}
+			pnlGame->Controls->Add(lblResult);
+		}
+		void faceUpDealerHand() {
+			dealerHand->getHand()->Insert(0, dealerHand->getHiddenCard());
+			dealerHand->setHiddenCard(nullptr);
+
+			loadDealerCardImages();
+			loadUserCardImages();
+			pnlGame->Refresh();
 		}
 
 
 #pragma endregion
 	private: System::Void BlackJack_Load(System::Object^ sender, System::EventArgs^ e) {
-
-		
+		btnHit->Visible = false;
+		btnStay->Visible = false;
+		lblDealer->Visible = false;
+		lblUser->Visible = false;
 
 	}
 
 	private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
+		resetGame();
+		pnlGame->Controls->Clear();
+		btnHit->Visible = true;
+		btnStay->Visible = true;
+		lblDealer->Visible = true;
+		lblUser->Visible = true;
+		btnHit->Enabled = true;
+		btnStay->Enabled = true;
 		initializeGame();
 		loadDealerCardImages();
 		loadUserCardImages();
+		if (reduceUserAce() == 21) {
+			
+			endGame();
+		}
 	}
-};
+	private: System::Void btnHit_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (reduceUserAce() < 21) {
+			dealCard(userHand);
+			loadUserCardImages();
+		}
+		if (reduceUserAce() == 21) {
+			
+			endGame();
+		}
+		else if (reduceUserAce() > 21) {
+			
+			endGame();
+		}
+	}
+	private: System::Void btnStay_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnHit->Enabled = false;
+		btnStay->Enabled = false;
+
+		while (reduceDealerAce() < 17) {
+			dealCard(dealerHand);
+			loadDealerCardImages();
+			pnlGame->Refresh();
+		}
+		
+		endGame();
+
+	}
+
+
+
+	};
 }

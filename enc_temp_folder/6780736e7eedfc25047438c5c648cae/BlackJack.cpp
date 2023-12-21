@@ -108,6 +108,4 @@ namespace GoldenLuck {
 		return (hand->getSum() == 21);
 	}
 
-
-
 }
