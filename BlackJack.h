@@ -1,6 +1,8 @@
 #pragma once
 #include "Deck.h"
+#include "Hand.h"
 #include <vector>
+#include <iostream>
 
 namespace GoldenLuck {
 
@@ -24,7 +26,16 @@ namespace GoldenLuck {
 			//TODO: Add the constructor code here
 			//
 		}
-	
+		Hand^ userHand;
+		Hand^ dealerHand;
+		Deck^ deck;
+
+		int bet;
+		void initializeGame();
+		void dealHiddenCard(Hand^ hand);
+		void dealCard(Hand^ hand);
+		int reduceDealerAce();
+		int reduceUserAce();
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -67,6 +78,7 @@ namespace GoldenLuck {
 		}
 #pragma endregion
 	private: System::Void BlackJack_Load(System::Object^ sender, System::EventArgs^ e) {
+
 	}
 	};
 }

@@ -1,34 +1,33 @@
-#include "card.h"
+#include "Card.h"
 
 Card::Card() {
     suit = ' ';
     rank = 0;
 }
 
-Card::Card(char newSuit, int newRank) {
+Card::Card(Char newSuit, int newRank) {
     if (newSuit != 'H' && newSuit != 'D' && newSuit != 'C' && newSuit != 'S') {
-        throw std::invalid_argument("Invalid suit!");
+        throw gcnew System::ArgumentException("Invalid suit!");
     }
     else {
         suit = newSuit;
     }
 
     if (newRank < 1 || newRank > 13) {
-        throw std::invalid_argument("Invalid rank!");
+        throw gcnew System::ArgumentException("Invalid rank!");
     }
     else {
         rank = newRank;
     }
-
 }
 
-char Card::getSuit() {
+Char Card::getSuit() {
     return suit;
 }
 
-void Card::setSuit(char newSuit) {
+void Card::setSuit(Char newSuit) {
     if (newSuit != 'H' && newSuit != 'D' && newSuit != 'C' && newSuit != 'S') {
-        throw std::invalid_argument("Invalid suit!");
+        throw gcnew System::ArgumentException("Invalid suit!");
     }
     else {
         suit = newSuit;
@@ -41,7 +40,7 @@ int Card::getRank() {
 
 void Card::setRank(int newRank) {
     if (newRank < 1 || newRank > 13) {
-        throw std::invalid_argument("Invalid rank!");
+        throw gcnew System::ArgumentException("Invalid rank!");
     }
     else {
         rank = newRank;

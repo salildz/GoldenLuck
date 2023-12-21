@@ -1,22 +1,17 @@
-#ifndef CARD_H
-#define CARD_H
-#include <iostream>
-#include <stdexcept>
 #pragma once
 
-class Card {
-public:
-	Card(); // Constructor
-	Card(char newSuit, int newRank); // Constructor with parameters
-	char getSuit();
-	void setSuit(char newSuit);
-	int getRank();
-	void setRank(int newRank);
+using namespace System;
 
+public ref class Card {
+public:
+    Card();
+    Card(Char newSuit, int newRank);
+    Char getSuit();
+    void setSuit(Char newSuit);
+    int getRank();
+    void setRank(int newRank);
 
 private:
-	char suit;
-	int rank;
+    Char suit;
+    int rank;
 };
-
-#endif // CARD_H

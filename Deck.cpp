@@ -1,41 +1,49 @@
 #include "Deck.h"
 
-
 Deck::Deck() {
+    cards = gcnew List<Card^>();
+
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('H', i));
+        cards->Add(gcnew Card('H', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('D', i));
+        cards->Add(gcnew Card('D', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('C', i));
+        cards->Add(gcnew Card('C', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('S', i));
+        cards->Add(gcnew Card('S', i));
     }
+
+    random = gcnew Random();
 }
 
-
 void Deck::shuffleDeck() {
-    std::random_device rd;
-    std::default_random_engine rng(rd());
-    std::shuffle(std::begin(cards), std::end(cards), rng);
+    Collections::Generic::List<Card^>^ temp = gcnew Collections::Generic::List<Card^>();
+
+    while (cards->Count > 0) {
+        int index = random->Next(cards->Count);
+        temp->Add(cards[index]);
+        cards->RemoveAt(index);
+    }
+
+    cards = temp;
 }
 
 void Deck::resetDeck() {
-    cards.clear();
+    cards->Clear();
+
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('H', i));
+        cards->Add(gcnew Card('H', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('D', i));
+        cards->Add(gcnew Card('D', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('C', i));
+        cards->Add(gcnew Card('C', i));
     }
     for (int i = 1; i < 14; ++i) {
-        cards.push_back(Card('S', i));
+        cards->Add(gcnew Card('S', i));
     }
 }
-

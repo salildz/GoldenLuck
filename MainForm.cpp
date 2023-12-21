@@ -8,8 +8,9 @@ using namespace System::Windows::Forms;
 
 void main(array < String^>^ args)
 {
-    Application::EnableVisualStyles();
-    Application::SetCompatibleTextRenderingDefault(0);
-    GoldenLuck::MainForm form;
-    Application::Run(% form);
+
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(0);
+	GoldenLuck::MainForm form;
+	Application::Run(% form);
 }

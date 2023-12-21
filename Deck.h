@@ -1,19 +1,21 @@
 #pragma once
-#ifndef DECK_H
-#define DECK_H
 
-#include "card.h"
+#include "Card.h"
 #include <vector>
 #include <algorithm>
 #include <random>
 #include <iostream>
 
-class Deck {
+using namespace System;
+using namespace System::Collections::Generic;
+
+public ref class Deck {
 public:
     Deck();
-    std::vector<Card> cards;
     void shuffleDeck();
     void resetDeck();
-};
+    List<Card^>^ cards;
 
-#endif // DECK_H
+private:
+    Random^ random;
+};
