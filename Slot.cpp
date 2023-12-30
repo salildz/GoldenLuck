@@ -1,5 +1,5 @@
 #include "Slot.h"
-#include <graphics.h>
+
 
 using namespace System;
 using namespace System::Collections::Generic;
