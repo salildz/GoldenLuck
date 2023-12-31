@@ -29,9 +29,9 @@ namespace GoldenLuck {
 
 		bool Slot::checkRoll(int Roll1, int Roll2, int Roll3);
 
-		void Slot::SlotRoll(int Roll, PictureBox^ Slot);
+		void Slot::SlotRoll(int& Roll, PictureBox^ Slot);
 
-		void Slot::SlotAnimation(int a, PictureBox^ Slot);
+		void Slot::SlotAnimation(int& a, PictureBox^ Slot);
 
 	protected:
 		/// <summary>
@@ -51,6 +51,11 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Label^ announcer;
+
+
+
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -69,6 +74,7 @@ namespace GoldenLuck {
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
 			   this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			   this->announcer = (gcnew System::Windows::Forms::Label());
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot2))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot3))->BeginInit();
@@ -133,11 +139,20 @@ namespace GoldenLuck {
 			   // 
 			   // pictureBox1
 			   // 
-			   this->pictureBox1->Location = System::Drawing::Point(0, -33);
+			   this->pictureBox1->Location = System::Drawing::Point(-9, -29);
 			   this->pictureBox1->Name = L"pictureBox1";
 			   this->pictureBox1->Size = System::Drawing::Size(487, 460);
 			   this->pictureBox1->TabIndex = 11;
 			   this->pictureBox1->TabStop = false;
+			   // 
+			   // announcer
+			   // 
+			   this->announcer->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(162)));
+			   this->announcer->Location = System::Drawing::Point(160, 321);
+			   this->announcer->Name = L"announcer";
+			   this->announcer->Size = System::Drawing::Size(264, 77);
+			   this->announcer->TabIndex = 12;
 			   // 
 			   // Slot
 			   // 
@@ -146,6 +161,7 @@ namespace GoldenLuck {
 			   this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(145)), static_cast<System::Int32>(static_cast<System::Byte>(156)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(210)));
 			   this->ClientSize = System::Drawing::Size(485, 427);
+			   this->Controls->Add(this->announcer);
 			   this->Controls->Add(this->panel1);
 			   this->Controls->Add(this->pictureBox1);
 			   this->Name = L"Slot";
@@ -162,19 +178,29 @@ namespace GoldenLuck {
 		   void loadImages(int a, PictureBox^ pictureBox) {
 			   switch (a) {
 			   case 1:
-				   pictureBox->Load("1.png");
+				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+				   pictureBox->Load("SlotPhoto\\1.png");
+				   pictureBox->Refresh();
 				   break;
 			   case 2:
-				   pictureBox->Load("2.png");
+				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+				   pictureBox->Load("SlotPhoto\\2.png");
+				   pictureBox->Refresh();
 				   break;
 			   case 3:
-				   pictureBox->Load("3.png");
+				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+				   pictureBox->Load("SlotPhoto\\3.png");
+				   pictureBox->Refresh();
 				   break;
 			   case 4:
-				   pictureBox->Load("4.png");
+				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+				   pictureBox->Load("SlotPhoto\\4.png");
+				   pictureBox->Refresh();
 				   break;
 			   case 5:
-				   pictureBox->Load("5.png");
+				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+				   pictureBox->Load("SlotPhoto\\5.png");
+				   pictureBox->Refresh();
 				   break;
 			   default:
 				   break;
@@ -186,9 +212,13 @@ namespace GoldenLuck {
 
 	private: System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e) {
 		btnRoll->Visible = true;
+		Slot1->Visible = false;
+		Slot2->Visible = false;
+		Slot3->Visible = false;
+
 	}
 	private: System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {
 		playSlot();
 	}
-	};
+};
 }
