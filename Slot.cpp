@@ -10,10 +10,13 @@ namespace GoldenLuck {
 		int Roll1 = 0, Roll2 = 0, Roll3 = 0, animationRoll = 0;
 		SlotAnimation(animationRoll,Slot1);
 		SlotRoll(Roll1, Slot1);
+		System::Threading::Thread::Sleep(460);
 		SlotAnimation(animationRoll,Slot2);
 		SlotRoll(Roll2, Slot2);
+		System::Threading::Thread::Sleep(460);
 		SlotAnimation(animationRoll,Slot3);
 		SlotRoll(Roll3, Slot3);
+		System::Threading::Thread::Sleep(460);
 		if (checkRoll(Roll1, Roll2, Roll3)) {
 			//win
 			;
@@ -22,7 +25,6 @@ namespace GoldenLuck {
 			//lose
 			announcer->Text = "YOU LOSE";
 		}
-		
 	}
 
 	bool Slot::checkRoll(int Roll1, int Roll2, int Roll3) {
@@ -45,10 +47,10 @@ namespace GoldenLuck {
 	}
 
 	void Slot::SlotAnimation(int& Roll,PictureBox^ Slot) {
-		for (int i = 0; i < 10; i++)
+		for (int i = 0,a = 60; i < 10; i++ , a += 40)
 		{
 			SlotRoll(Roll,Slot);
-			System::Threading::Thread::Sleep(60);
+			System::Threading::Thread::Sleep(a);
 		}
 	}
 

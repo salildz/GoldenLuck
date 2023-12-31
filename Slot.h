@@ -85,7 +85,7 @@ namespace GoldenLuck {
 			   // Slot1
 			   // 
 			   this->Slot1->BackColor = System::Drawing::Color::Black;
-			   this->Slot1->Location = System::Drawing::Point(30, 52);
+			   this->Slot1->Location = System::Drawing::Point(21, 52);
 			   this->Slot1->Name = L"Slot1";
 			   this->Slot1->Size = System::Drawing::Size(126, 159);
 			   this->Slot1->TabIndex = 3;
@@ -95,9 +95,9 @@ namespace GoldenLuck {
 			   // 
 			   this->btnRoll->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(162)));
-			   this->btnRoll->Location = System::Drawing::Point(30, 251);
+			   this->btnRoll->Location = System::Drawing::Point(33, 321);
 			   this->btnRoll->Name = L"btnRoll";
-			   this->btnRoll->Size = System::Drawing::Size(408, 52);
+			   this->btnRoll->Size = System::Drawing::Size(417, 52);
 			   this->btnRoll->TabIndex = 7;
 			   this->btnRoll->Text = L"ROLL";
 			   this->btnRoll->UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@ namespace GoldenLuck {
 			   // Slot2
 			   // 
 			   this->Slot2->BackColor = System::Drawing::Color::Black;
-			   this->Slot2->Location = System::Drawing::Point(171, 52);
+			   this->Slot2->Location = System::Drawing::Point(167, 52);
 			   this->Slot2->Name = L"Slot2";
 			   this->Slot2->Size = System::Drawing::Size(126, 159);
 			   this->Slot2->TabIndex = 8;
@@ -123,13 +123,12 @@ namespace GoldenLuck {
 			   // 
 			   // panel1
 			   // 
-			   this->panel1->Controls->Add(this->btnRoll);
 			   this->panel1->Controls->Add(this->Slot1);
 			   this->panel1->Controls->Add(this->Slot3);
 			   this->panel1->Controls->Add(this->Slot2);
 			   this->panel1->Location = System::Drawing::Point(12, 12);
 			   this->panel1->Name = L"panel1";
-			   this->panel1->Size = System::Drawing::Size(466, 306);
+			   this->panel1->Size = System::Drawing::Size(461, 288);
 			   this->panel1->TabIndex = 10;
 			   // 
 			   // contextMenuStrip1
@@ -139,11 +138,12 @@ namespace GoldenLuck {
 			   // 
 			   // pictureBox1
 			   // 
-			   this->pictureBox1->Location = System::Drawing::Point(-9, -29);
+			   this->pictureBox1->Location = System::Drawing::Point(-7, -31);
 			   this->pictureBox1->Name = L"pictureBox1";
-			   this->pictureBox1->Size = System::Drawing::Size(487, 460);
+			   this->pictureBox1->Size = System::Drawing::Size(499, 465);
 			   this->pictureBox1->TabIndex = 11;
 			   this->pictureBox1->TabStop = false;
+			   this->pictureBox1->Click += gcnew System::EventHandler(this, &Slot::pictureBox1_Click);
 			   // 
 			   // announcer
 			   // 
@@ -161,6 +161,7 @@ namespace GoldenLuck {
 			   this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(145)), static_cast<System::Int32>(static_cast<System::Byte>(156)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(210)));
 			   this->ClientSize = System::Drawing::Size(485, 427);
+			   this->Controls->Add(this->btnRoll);
 			   this->Controls->Add(this->announcer);
 			   this->Controls->Add(this->panel1);
 			   this->Controls->Add(this->pictureBox1);
@@ -176,41 +177,15 @@ namespace GoldenLuck {
 		   }
 
 		   void loadImages(int a, PictureBox^ pictureBox) {
-			   switch (a) {
-			   case 1:
-				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
-				   pictureBox->Load("SlotPhoto\\1.png");
-				   pictureBox->Refresh();
-				   break;
-			   case 2:
-				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
-				   pictureBox->Load("SlotPhoto\\2.png");
-				   pictureBox->Refresh();
-				   break;
-			   case 3:
-				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
-				   pictureBox->Load("SlotPhoto\\3.png");
-				   pictureBox->Refresh();
-				   break;
-			   case 4:
-				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
-				   pictureBox->Load("SlotPhoto\\4.png");
-				   pictureBox->Refresh();
-				   break;
-			   case 5:
-				   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
-				   pictureBox->Load("SlotPhoto\\5.png");
-				   pictureBox->Refresh();
-				   break;
-			   default:
-				   break;
-			   }
-
+			   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
+			   pictureBox->Load("SlotPhoto\\" + a + ".png");
+			   pictureBox->Refresh();
 		   }
 
 #pragma endregion
 
 	private: System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e) {
+
 		btnRoll->Visible = true;
 		Slot1->Visible = false;
 		Slot2->Visible = false;
@@ -218,7 +193,11 @@ namespace GoldenLuck {
 
 	}
 	private: System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnRoll->Enabled = false;
+		btnRoll->Visible = false;
 		playSlot();
+		btnRoll->Visible = true;
+		btnRoll->Enabled = true;
 	}
 };
 }
