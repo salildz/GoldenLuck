@@ -23,40 +23,35 @@ namespace GoldenLuck {
 
         loadDealerCardImages();
     }
-    void Poker::loadDealerCardImages()
+    void Poker::loadDealerCardImages() // Gets the dealer cards from hand and add their images into picture boxes.
     {
         if (dealerHand->getHiddenCard() == nullptr) {
             pnlGame->Controls->Clear();
             array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
-
-            // PictureBox kontrollerine resim atanmas�
             for (int i = 0; i < dealerHand->getHand()->Count; i++)
             {
                 cardPictureBoxes1[i] = gcnew PictureBox();
-                cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna s��acak �ekilde ayarlar
-                cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'lar�n konumu
-                cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'lar�n boyutu
-                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-                pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'lar� pnlGame panele ekler
+                cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; 
+                cardPictureBoxes1[i]->Location = Point(i * 110, 10); // locate the picturebox
+                cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // adjusting size
+                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // chooses the pictures
+                pnlGame->Controls->Add(cardPictureBoxes1[i]); // adds picturebox to Game Panel
             }
 
         }
-        else {
-            //kapal� kart
+        else { // image of hidden card 
             PictureBox^ cardPictureBox1 = gcnew PictureBox();
-            cardPictureBox1->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna s��acak �ekilde ayarlar
-            cardPictureBox1->Location = Point(0 * 110, 10); // PictureBox'lar�n konumu
-            cardPictureBox1->Size = System::Drawing::Size(110, 154); // PictureBox'lar�n boyutu
-            cardPictureBox1->Image = Image::FromFile("cards\\BACK.png"); // Resmi PictureBox'a atar
-            pnlGame->Controls->Add(cardPictureBox1); // PictureBox'lar� pnlGame panele ekler
-
-            // A��k kart
+            cardPictureBox1->SizeMode = PictureBoxSizeMode::Zoom; 
+            cardPictureBox1->Location = Point(0 * 110, 10); 
+            cardPictureBox1->Size = System::Drawing::Size(110, 154); 
+            cardPictureBox1->Image = Image::FromFile("cards\\BACK.png"); 
+            pnlGame->Controls->Add(cardPictureBox1); 
             PictureBox^ cardPictureBox2 = gcnew PictureBox();
-            cardPictureBox2->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna s��acak �ekilde ayarlar
-            cardPictureBox2->Location = Point(1 * 110, 10); // PictureBox'lar�n konumu
-            cardPictureBox2->Size = System::Drawing::Size(110, 154); // PictureBox'lar�n boyutu
-            cardPictureBox2->Image = Image::FromFile("cards\\BACK.png"); // Resmi PictureBox'a atar
-            pnlGame->Controls->Add(cardPictureBox2); // PictureBox'lar� pnlGame panele ekler
+            cardPictureBox2->SizeMode = PictureBoxSizeMode::Zoom; 
+            cardPictureBox2->Location = Point(1 * 110, 10); 
+            cardPictureBox2->Size = System::Drawing::Size(110, 154); 
+            cardPictureBox2->Image = Image::FromFile("cards\\BACK.png"); 
+            pnlGame->Controls->Add(cardPictureBox2); 
 
         }
 
@@ -66,15 +61,14 @@ namespace GoldenLuck {
     void Poker::loadUserCardImages()
     {
         array<PictureBox^>^ cardPictureBoxes2 = gcnew array<PictureBox^>(userHand->getHand()->Count);
-        // PictureBox kontrollerine resim atanmas�
         for (int i = 0; i < userHand->getHand()->Count; i++)
         {
             cardPictureBoxes2[i] = gcnew PictureBox();
-            cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna s��acak �ekilde ayarlar
-            cardPictureBoxes2[i]->Location = Point(i * 110, 366); // PictureBox'lar�n konumu
-            cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); // PictureBox'lar�n boyutu
+            cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; 
+            cardPictureBoxes2[i]->Location = Point(i * 110, 366); 
+            cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); 
             cardPictureBoxes2[i]->Image = Image::FromFile("cards\\" + userHand->getHand()[i]->getRank() + "-" + userHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-            pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'lar� pnlGame panele ekler
+            pnlGame->Controls->Add(cardPictureBoxes2[i]); 
 
         }
 
@@ -86,15 +80,15 @@ namespace GoldenLuck {
 
         array<PictureBox^>^ cardPictureBoxes2 = gcnew array<PictureBox^>(pokerTableHand->getHand()->Count);
 
-        // PictureBox kontrollerine resim atanmas�
+       
         for (int i = 0; i < pokerTableHand->getHand()->Count; i++)
         {
             cardPictureBoxes2[i] = gcnew PictureBox();
-            cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna s��acak �ekilde ayarlar
-            cardPictureBoxes2[i]->Location = Point(i * 110, 185); // PictureBox'lar�n konumu
-            cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); // PictureBox'lar�n boyutu
+            cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; 
+            cardPictureBoxes2[i]->Location = Point(i * 110, 185); 
+            cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); 
             cardPictureBoxes2[i]->Image = Image::FromFile("cards\\" + pokerTableHand->getHand()[i]->getRank() + "-" + pokerTableHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-            pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'lar� pnlGame panele ekler
+            pnlGame->Controls->Add(cardPictureBoxes2[i]); 
 
         }
 
@@ -102,31 +96,31 @@ namespace GoldenLuck {
 
     }
 
-    void Poker::resetGame() {
+    void Poker::resetGame() { // reset the game
         userHand = nullptr;
         dealerHand = nullptr;
         pokerTableHand = nullptr;
 
 
     }
-    void Poker::dealHiddenCard(Hand^ hand) {
+    void Poker::dealHiddenCard(Hand^ hand) { // deal hidden card
         Card^ temp1 = deck->cards[deck->cards->Count - 1];
         hand->addCardToHand(temp1);
         deck->cards->RemoveAt(deck->cards->Count - 1);
 
     }
 
-    void Poker::dealCard(Hand^ hand) {
+    void Poker::dealCard(Hand^ hand) { //deal open card
         Card^ temp3 = deck->cards[deck->cards->Count - 1];
         hand->addCardToHand(temp3);
         deck->cards->RemoveAt(deck->cards->Count - 1);
 
     }
-    void Poker::endGame() {
+    void Poker::endGame() { // end game and show the result
 
         pnlGame->Controls->Add(lblResult);
     }
-    Hand^ Poker::faceUpDealerHand(Hand^ hand) {
+    Hand^ Poker::faceUpDealerHand(Hand^ hand) { // face up the dealers hidden card
         Card^ card1 = hand->getHand()[0];
         Card^ card2 = hand->getHand()[1];
 
@@ -137,7 +131,7 @@ namespace GoldenLuck {
         return dealerHand;
     }
 
-    Hand^ Poker::sortForRank(Hand^ hand)
+    Hand^ Poker::sortForRank(Hand^ hand) // sort hand for rank
     {
         for (int i = 0; i < 5; i++)
         {
@@ -154,7 +148,7 @@ namespace GoldenLuck {
         return hand;
     }
 
-    bool Poker::checkOnePair(Hand^ hand) {
+    bool Poker::checkOnePair(Hand^ hand) { // get hand and return true or false for one pair
         int counter = 0;
         hand = sortForRank(hand);
         for (int j = 0; j < (hand->getHand()->Count) - 1; j++) {
@@ -166,7 +160,7 @@ namespace GoldenLuck {
         else return false;
 
     }
-    bool Poker::checkTwoPair(Hand^ hand) {
+    bool Poker::checkTwoPair(Hand^ hand) { // get hand and return true or false for two pair
         hand = sortForRank(hand);
         if (hand->getHand()[0]->getRank() == hand->getHand()[1]->getRank()) {
             if (hand->getHand()[2]->getRank() == hand->getHand()[3]->getRank() && hand->getHand()[4]->getRank() != hand->getHand()[3]->getRank()) {
@@ -192,7 +186,7 @@ namespace GoldenLuck {
 
     }
 
-    bool Poker::checkThreeOfKind(Hand^ hand) {
+    bool Poker::checkThreeOfKind(Hand^ hand) { // get hand and return true or false for three of kind
         bool check = false;
         hand = sortForRank(hand);
         if (hand->getHand()[0]->getRank() == hand->getHand()[1]->getRank()) {
@@ -226,7 +220,7 @@ namespace GoldenLuck {
         }
         return check;
     }
-    bool Poker::checkStraight(Hand^ hand) {
+    bool Poker::checkStraight(Hand^ hand) { // get hand and return true or false for straight
         hand = sortForRank(hand);
         bool check = false;
         for (int i = 0; i < 4; i++)
@@ -247,7 +241,7 @@ namespace GoldenLuck {
 
         return check;
     }
-    bool Poker::checkFlush(Hand^ hand) {
+    bool Poker::checkFlush(Hand^ hand) { // get hand and return true or false for flush
         hand = sortForRank(hand);
         bool check = false;
         for (int i = 0; i < 4; i++)
@@ -270,7 +264,7 @@ namespace GoldenLuck {
         }
         return check;
     }
-    bool Poker::checkFullHouse(Hand^ hand) {
+    bool Poker::checkFullHouse(Hand^ hand) { // get hand and return true or false for full house
         hand = sortForRank(hand);
         bool check = false;
 
@@ -287,7 +281,7 @@ namespace GoldenLuck {
         }
         return check;
     }
-    bool Poker::checkFourOfKind(Hand^ hand) {
+    bool Poker::checkFourOfKind(Hand^ hand) { // get hand and return true or false for four of kind
         hand = sortForRank(hand);
         bool check = false;
 
@@ -299,7 +293,7 @@ namespace GoldenLuck {
         }
         else return false;
     }
-    bool Poker::checkStraightFlush(Hand^ hand) {
+    bool Poker::checkStraightFlush(Hand^ hand) { // get hand and return true or false for straight flush
         bool check = false;
         hand = sortForRank(hand);
         for (int i = 0; i <= 3; ++i) {
@@ -316,7 +310,7 @@ namespace GoldenLuck {
             }
         } return check;
     }
-    bool Poker::checkRoyalFlush(Hand^ hand) {
+    bool Poker::checkRoyalFlush(Hand^ hand) { // get hand and return true or false for royal flush
         bool check = false;
         hand = sortForRank(hand);
         for (int i = 0; i <= 3; i++) {
@@ -336,7 +330,7 @@ namespace GoldenLuck {
         }
         return check;
     }
-    bool Poker::checkHighCard(Hand^ hand) {
+    bool Poker::checkHighCard(Hand^ hand) { // get hand and return true or false for high card
         hand = sortForRank(hand);
         if (!checkFlush(hand) && !checkFourOfKind(hand) && !checkFullHouse(hand) && !checkOnePair(hand) && !checkRoyalFlush(hand)
             && !checkStraight(hand) && !checkStraightFlush(hand) && !checkThreeOfKind(hand) && !checkTwoPair(hand)) {
@@ -345,8 +339,7 @@ namespace GoldenLuck {
         else return false;
     }
 
-    //else if ile doğru kombinasyonu buldur halllet
-    int Poker::checkForFirstCard(Hand^ hand) {
+    int Poker::checkForFirstCard(Hand^ hand) { // change pokerTableHand for first card from dealer or user hand and checks the hand
         int maxFirst = 0;
         Card^ firstCard;
         firstCard = hand->getHand()[0];
@@ -355,10 +348,10 @@ namespace GoldenLuck {
             Hand^ temp = gcnew Hand();
             for (int j = 0; j < 5; ++j) {
                 if (i == j) {
-                    temp->addCardToHand(firstCard); // İlk kartı ekle
+                    temp->addCardToHand(firstCard); // add first card from dealer or user hand
                 }
                 else {
-                    temp->addCardToHand(pokerTableHand->getHand()[j]); // Diğer kartları ekle
+                    temp->addCardToHand(pokerTableHand->getHand()[j]); // add other cards from pokerTableHand
                 }
             }
             if (checkRoyalFlush(temp)) {
@@ -411,7 +404,7 @@ namespace GoldenLuck {
             }
         } return maxFirst;
     }
-    int Poker::checkForSecondCard(Hand^ hand) {
+    int Poker::checkForSecondCard(Hand^ hand) { // change pokerTableHand for second card from dealer or user hand and checks the hand
         int maxSecond = 0;
         Card^ secondCard;
         int max = 0;
@@ -421,10 +414,10 @@ namespace GoldenLuck {
             for (int j = 0; j < 5; ++j) {
 
                 if (i == j) {
-                    temp->addCardToHand(secondCard);
+                    temp->addCardToHand(secondCard);  // add second card from dealer or user hand
                 }
                 else {
-                    temp->addCardToHand(pokerTableHand->getHand()[j]); // Diğer kartları ekle
+                    temp->addCardToHand(pokerTableHand->getHand()[j]); // add other cards
                 }
             }
             if (checkRoyalFlush(temp)) {
@@ -479,7 +472,7 @@ namespace GoldenLuck {
             }
         } return maxSecond;
     }
-    int Poker::checkForBothCard(Hand^ hand) {
+    int Poker::checkForBothCard(Hand^ hand) { // gets both card from dealer or user hand and check for both card
         int max = 0;
         int maxBoth = 0;
         Card^ secondCard;
@@ -492,14 +485,10 @@ namespace GoldenLuck {
                 for (int k = j + 1; k < 5; k++) {
                     temp = gcnew Hand();
                     temp->addCardToHand(firstCard);
-                    temp->addCardToHand(secondCard);
-
-                    // Seçilen 3 kartı geçici elde denemek için ekle
+                    temp->addCardToHand(secondCard);    
                     temp->addCardToHand(pokerTableHand->getHand()[i]);
                     temp->addCardToHand(pokerTableHand->getHand()[j]);
                     temp->addCardToHand(pokerTableHand->getHand()[k]);
-
-                    // Şu anki temp eliyle poker el sıralamasını kontrol et (örneğin: Royal Flush, Straight, vs.)
 
                     if (checkRoyalFlush(temp)) {
                         max = 9;
@@ -551,14 +540,11 @@ namespace GoldenLuck {
                         max = 0;
                         maxBoth = (max > maxBoth) ? max : maxBoth;
                     }
-
-                    // En yüksek eli belirle
-
                 }
             }
         }
         return maxBoth;
-    } int Poker::checkForNone(Hand^ hand) {
+    } int Poker::checkForNone(Hand^ hand) {  // only check for pokerTableHand without change
         int max = 0;
         int maxNone = 0;
         if (checkRoyalFlush(hand)) {
@@ -604,7 +590,7 @@ namespace GoldenLuck {
         return maxNone;
     }
 
-    System::Void Poker::btnBet_Click(System::Object^ sender, System::EventArgs^ e) {
+    System::Void Poker::btnBet_Click(System::Object^ sender, System::EventArgs^ e) { // after bet it start to check hand and compare them from the vector
         dealerHand = faceUpDealerHand(dealerHand);
         int userMax = 0;
         int dealerMax = 0;
@@ -655,7 +641,7 @@ namespace GoldenLuck {
 
     }
 
-    System::Void Poker::btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
+    System::Void Poker::btnStart_Click(System::Object^ sender, System::EventArgs^ e) { // initialize the game
         resetGame();
         pnlGame->Controls->Clear();
         initializeGame();
