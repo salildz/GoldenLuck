@@ -75,6 +75,7 @@ namespace GoldenLuck {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(BlackJack::typeid));
 			this->btnHit = (gcnew System::Windows::Forms::Button());
 			this->btnStay = (gcnew System::Windows::Forms::Button());
 			this->pnlGame = (gcnew System::Windows::Forms::Panel());
@@ -130,6 +131,7 @@ namespace GoldenLuck {
 			// 
 			// pnlGame
 			// 
+			this->pnlGame->BackColor = System::Drawing::Color::Transparent;
 			this->pnlGame->Controls->Add(this->lblResult);
 			this->pnlGame->Controls->Add(this->lblUser);
 			this->pnlGame->Controls->Add(this->lblDealer);
@@ -195,6 +197,7 @@ namespace GoldenLuck {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(181)), static_cast<System::Int32>(static_cast<System::Byte>(203)),
 				static_cast<System::Int32>(static_cast<System::Byte>(225)));
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(944, 681);
 			this->Controls->Add(this->btnStart);
 			this->Controls->Add(this->pnlGame);
@@ -209,45 +212,40 @@ namespace GoldenLuck {
 		}
 		void loadDealerCardImages()
 		{
-			if (dealerHand->getHiddenCard() == nullptr) {
-				pnlGame->Controls->Clear();
-				array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
+			array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
 
-				// PictureBox kontrollerine resim atanmasý
-				for (int i = 0; i < dealerHand->getHand()->Count; i++)
-				{
-					cardPictureBoxes1[i] = gcnew PictureBox();
-					cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-					cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
-					cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+			// PictureBox kontrollerine resim atanmasý
+			for (int i = 0; i < dealerHand->getHand()->Count; i++)
+			{
+				cardPictureBoxes1[i] = gcnew PictureBox();
+				cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
+				cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
+				cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+
+				if (dealerHand->getHand()[i]->isFaceUp()) {
+					if (i == 0) {
+						pnlGame->Controls->RemoveAt(0);
+					}
 					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-					pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larý pnlGame panele ekler
 				}
-				lblDealer->Text = "Dealer: " + dealerHand->getSum();
+				else {
+					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
+				}
+				pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larý pnlGame panele ekler
+			}
+
+			pnlGame->Controls->Add(lblDealer);
+			if (dealerHand->getHand()[0]->isFaceUp()) {
+				lblDealer->Text = "Dealer: " + reduceDealerAce();
 			}
 			else {
-				//kapalý kart
-				PictureBox^ cardPictureBox1 = gcnew PictureBox();
-				cardPictureBox1->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBox1->Location = Point(0 * 110, 10); // PictureBox'larýn konumu
-				cardPictureBox1->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
-				cardPictureBox1->Image = Image::FromFile("cards\\BACK.png"); // Resmi PictureBox'a atar
-				pnlGame->Controls->Add(cardPictureBox1); // PictureBox'larý pnlGame panele ekler
-
-				// Açýk kart
-				PictureBox^ cardPictureBox2 = gcnew PictureBox();
-				cardPictureBox2->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBox2->Location = Point(1 * 110, 10); // PictureBox'larýn konumu
-				cardPictureBox2->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
-				cardPictureBox2->Image = Image::FromFile("cards\\" + dealerHand->getHand()[0]->getRank() + "-" + dealerHand->getHand()[0]->getSuit() + ".png"); // Resmi PictureBox'a atar
-				pnlGame->Controls->Add(cardPictureBox2); // PictureBox'larý pnlGame panele ekler
-				int temp = dealerHand->getSum() - dealerHand->getHiddenCard()->getRank();
-				lblDealer->Text = "Dealer: " + temp;
+				lblDealer->Text = "Dealer: " + dealerHand->getSumForDealer();
 			}
-			pnlGame->Controls->Add(lblDealer);
+
 
 
 		}
+
 		void loadUserCardImages()
 		{
 
@@ -279,41 +277,40 @@ namespace GoldenLuck {
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				
+
 			}
 			else if (reduceDealerAce() > 21) {
 				lblResult->Text = "You Win!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				
+
 			}
 			else if (reduceUserAce() == reduceDealerAce()) {
 				lblResult->Text = "Tie!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				
+
 			}
 			else if (reduceUserAce() > reduceDealerAce()) {
 				lblResult->Text = "You Win!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				
+
 			}
 			else if (reduceUserAce() < reduceDealerAce()) {
 				lblResult->Text = "You Lose!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				
+
 			}
 			pnlGame->Controls->Add(lblResult);
 		}
 		void faceUpDealerHand() {
-			dealerHand->getHand()->Insert(0, dealerHand->getHiddenCard());
-			dealerHand->setHiddenCard(nullptr);
+			dealerHand->getHand()[0]->makeVisible();
 
 			loadDealerCardImages();
 			loadUserCardImages();
@@ -343,7 +340,7 @@ namespace GoldenLuck {
 		loadDealerCardImages();
 		loadUserCardImages();
 		if (reduceUserAce() == 21) {
-			
+
 			endGame();
 		}
 	}
@@ -353,24 +350,25 @@ namespace GoldenLuck {
 			loadUserCardImages();
 		}
 		if (reduceUserAce() == 21) {
-			
+
 			endGame();
 		}
 		else if (reduceUserAce() > 21) {
-			
+
 			endGame();
 		}
 	}
 	private: System::Void btnStay_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnHit->Enabled = false;
 		btnStay->Enabled = false;
+		faceUpDealerHand();
 
 		while (reduceDealerAce() < 17) {
 			dealCard(dealerHand);
 			loadDealerCardImages();
 			pnlGame->Refresh();
 		}
-		
+
 		endGame();
 
 	}

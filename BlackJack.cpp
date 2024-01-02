@@ -25,24 +25,10 @@ namespace GoldenLuck {
 		dealerHand = gcnew Hand();
 		deck = gcnew Deck();
 		deck->shuffleDeck();
-		bet = 200;
 		dealCard(userHand);
 		dealHiddenCard(dealerHand);
 		dealCard(userHand);
 		dealCard(dealerHand);
-		/*int j = 1;
-		for each (Card ^ card in deck->cards) {
-			Console::WriteLine("{0} {1}  {2}", card->getSuit(), card->getRank(), j++);
-		}
-		Console::WriteLine("Hidden: {0} {1}", dealerHand->getHiddenCard()->getSuit(), dealerHand->getHiddenCard()->getRank());
-		Console::Write("Dealer: ");
-		for each (Card ^ card in dealerHand->getHand()) {
-			Console::WriteLine("{0} {1}", card->getSuit(), card->getRank());
-		}
-		Console::Write("User: ");
-		for each (Card ^ card in userHand->getHand()) {
-			Console::WriteLine("{0} {1}", card->getSuit(), card->getRank());
-		}*/
 	}
 	void BlackJack::resetGame() {
 		if (userHand != nullptr && dealerHand != nullptr) {
@@ -53,7 +39,10 @@ namespace GoldenLuck {
 
 	void BlackJack::dealHiddenCard(Hand^ hand) {
 		Card^ temp1 = deck->cards[deck->cards->Count - 1];
-		hand->setHiddenCard(temp1);
+		temp1->makeHidden();
+		hand->addCardToHand(temp1);
+
+
 		//Ace and JQK check
 		if (temp1->getRank() == 1) {
 			hand->addSum(11);
@@ -68,6 +57,8 @@ namespace GoldenLuck {
 
 		deck->cards->RemoveAt(deck->cards->Count - 1);
 	}
+
+
 
 	void BlackJack::dealCard(Hand^ hand) {
 		Card^ temp2 = deck->cards[deck->cards->Count - 1];
@@ -107,7 +98,6 @@ namespace GoldenLuck {
 	bool BlackJack::isBlackJack(Hand^ hand) {
 		return (hand->getSum() == 21);
 	}
-
 
 
 }
