@@ -50,8 +50,10 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::PictureBox^ Slot3;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
 	private: System::Windows::Forms::Label^ announcer;
+	private: System::Windows::Forms::PictureBox^ SlotPic;
+
 
 
 
@@ -67,116 +69,120 @@ namespace GoldenLuck {
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
+			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Slot::typeid));
 			   this->Slot1 = (gcnew System::Windows::Forms::PictureBox());
 			   this->btnRoll = (gcnew System::Windows::Forms::Button());
 			   this->Slot2 = (gcnew System::Windows::Forms::PictureBox());
 			   this->Slot3 = (gcnew System::Windows::Forms::PictureBox());
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
-			   this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
-			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			   this->announcer = (gcnew System::Windows::Forms::Label());
+			   this->SlotPic = (gcnew System::Windows::Forms::PictureBox());
+			   this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot2))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot3))->BeginInit();
 			   this->panel1->SuspendLayout();
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SlotPic))->BeginInit();
 			   this->SuspendLayout();
 			   // 
 			   // Slot1
 			   // 
-			   this->Slot1->BackColor = System::Drawing::Color::Black;
-			   this->Slot1->Location = System::Drawing::Point(21, 52);
+			   this->Slot1->BackColor = System::Drawing::Color::Transparent;
+			   this->Slot1->Location = System::Drawing::Point(262, 305);
 			   this->Slot1->Name = L"Slot1";
-			   this->Slot1->Size = System::Drawing::Size(126, 159);
+			   this->Slot1->Size = System::Drawing::Size(123, 183);
 			   this->Slot1->TabIndex = 3;
 			   this->Slot1->TabStop = false;
 			   // 
 			   // btnRoll
 			   // 
+			   this->btnRoll->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			   this->btnRoll->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(162)));
-			   this->btnRoll->Location = System::Drawing::Point(33, 321);
+			   this->btnRoll->Location = System::Drawing::Point(286, 543);
 			   this->btnRoll->Name = L"btnRoll";
 			   this->btnRoll->Size = System::Drawing::Size(417, 52);
 			   this->btnRoll->TabIndex = 7;
 			   this->btnRoll->Text = L"ROLL";
-			   this->btnRoll->UseVisualStyleBackColor = true;
+			   this->btnRoll->UseVisualStyleBackColor = false;
 			   this->btnRoll->Click += gcnew System::EventHandler(this, &Slot::btnRoll_Click);
 			   // 
 			   // Slot2
 			   // 
-			   this->Slot2->BackColor = System::Drawing::Color::Black;
-			   this->Slot2->Location = System::Drawing::Point(167, 52);
+			   this->Slot2->BackColor = System::Drawing::Color::Transparent;
+			   this->Slot2->Location = System::Drawing::Point(439, 305);
 			   this->Slot2->Name = L"Slot2";
-			   this->Slot2->Size = System::Drawing::Size(126, 159);
+			   this->Slot2->Size = System::Drawing::Size(129, 183);
 			   this->Slot2->TabIndex = 8;
 			   this->Slot2->TabStop = false;
 			   // 
 			   // Slot3
 			   // 
-			   this->Slot3->BackColor = System::Drawing::Color::Black;
-			   this->Slot3->Location = System::Drawing::Point(312, 52);
+			   this->Slot3->BackColor = System::Drawing::Color::Transparent;
+			   this->Slot3->Location = System::Drawing::Point(620, 305);
 			   this->Slot3->Name = L"Slot3";
-			   this->Slot3->Size = System::Drawing::Size(126, 159);
+			   this->Slot3->Size = System::Drawing::Size(125, 183);
 			   this->Slot3->TabIndex = 9;
 			   this->Slot3->TabStop = false;
 			   // 
 			   // panel1
 			   // 
-			   this->panel1->Controls->Add(this->Slot1);
-			   this->panel1->Controls->Add(this->Slot3);
+			   this->panel1->Controls->Add(this->announcer);
 			   this->panel1->Controls->Add(this->Slot2);
-			   this->panel1->Location = System::Drawing::Point(12, 12);
+			   this->panel1->Controls->Add(this->Slot1);
+			   this->panel1->Controls->Add(this->btnRoll);
+			   this->panel1->Controls->Add(this->Slot3);
+			   this->panel1->Controls->Add(this->SlotPic);
+			   this->panel1->Location = System::Drawing::Point(0, 0);
 			   this->panel1->Name = L"panel1";
-			   this->panel1->Size = System::Drawing::Size(461, 288);
+			   this->panel1->Size = System::Drawing::Size(992, 617);
 			   this->panel1->TabIndex = 10;
+			   // 
+			   // announcer
+			   // 
+			   this->announcer->BackColor = System::Drawing::Color::Transparent;
+			   this->announcer->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(162)));
+			   this->announcer->Location = System::Drawing::Point(370, 9);
+			   this->announcer->Name = L"announcer";
+			   this->announcer->Size = System::Drawing::Size(264, 97);
+			   this->announcer->TabIndex = 12;
+			   this->announcer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			   // 
+			   // SlotPic
+			   // 
+			   this->SlotPic->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"SlotPic.BackgroundImage")));
+			   this->SlotPic->Location = System::Drawing::Point(-12, 0);
+			   this->SlotPic->Name = L"SlotPic";
+			   this->SlotPic->Size = System::Drawing::Size(1002, 631);
+			   this->SlotPic->TabIndex = 13;
+			   this->SlotPic->TabStop = false;
 			   // 
 			   // contextMenuStrip1
 			   // 
 			   this->contextMenuStrip1->Name = L"contextMenuStrip1";
 			   this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
 			   // 
-			   // pictureBox1
-			   // 
-			   this->pictureBox1->Location = System::Drawing::Point(-7, -31);
-			   this->pictureBox1->Name = L"pictureBox1";
-			   this->pictureBox1->Size = System::Drawing::Size(499, 465);
-			   this->pictureBox1->TabIndex = 11;
-			   this->pictureBox1->TabStop = false;
-			   this->pictureBox1->Click += gcnew System::EventHandler(this, &Slot::pictureBox1_Click);
-			   // 
-			   // announcer
-			   // 
-			   this->announcer->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(162)));
-			   this->announcer->Location = System::Drawing::Point(160, 321);
-			   this->announcer->Name = L"announcer";
-			   this->announcer->Size = System::Drawing::Size(264, 77);
-			   this->announcer->TabIndex = 12;
-			   // 
 			   // Slot
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(145)), static_cast<System::Int32>(static_cast<System::Byte>(156)),
-				   static_cast<System::Int32>(static_cast<System::Byte>(210)));
-			   this->ClientSize = System::Drawing::Size(485, 427);
-			   this->Controls->Add(this->btnRoll);
-			   this->Controls->Add(this->announcer);
+			   this->BackColor = System::Drawing::Color::White;
+			   this->ClientSize = System::Drawing::Size(991, 607);
 			   this->Controls->Add(this->panel1);
-			   this->Controls->Add(this->pictureBox1);
 			   this->Name = L"Slot";
 			   this->Text = L"Slot";
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot2))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot3))->EndInit();
 			   this->panel1->ResumeLayout(false);
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SlotPic))->EndInit();
 			   this->ResumeLayout(false);
 
 		   }
 
-		   void loadImages(int a, PictureBox^ pictureBox) {
+		   void loadImages(int a, PictureBox^ pictureBox) {														//to load the images of Slot
 			   pictureBox->SizeMode = PictureBoxSizeMode::Zoom;
 			   pictureBox->Load("SlotPhoto\\" + a + ".png");
 			   pictureBox->Refresh();
@@ -184,18 +190,20 @@ namespace GoldenLuck {
 
 #pragma endregion
 
-	private: System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e) {
-
+	private: System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e) {								//when the game loads for the first time this function is called
+		Slot1->Parent = SlotPic;
 		btnRoll->Visible = true;
 		Slot1->Visible = false;
 		Slot2->Visible = false;
 		Slot3->Visible = false;
 
 	}
-	private: System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {							//when the roll button is clicked roll button gets disabled and the rolling starts
 		btnRoll->Enabled = false;
 		btnRoll->Visible = false;
+		announcer->Visible = false;
 		playSlot();
+		announcer->Visible = true;
 		btnRoll->Visible = true;
 		btnRoll->Enabled = true;
 	}
