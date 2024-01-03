@@ -25,7 +25,7 @@ namespace GoldenLuck {
     }
     void Poker::loadDealerCardImages()
     {
-        if (dealerHand->getHiddenCard() == nullptr) {
+        if (dealerHand->getHand()[0]->isFaceUp()) {//BURAYI DEĞİŞTİRDİM
             pnlGame->Controls->Clear();
             array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
 
