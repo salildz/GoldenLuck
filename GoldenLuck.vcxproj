@@ -101,6 +101,9 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <NoEntryPoint>false</NoEntryPoint>
+      <EntryPointSymbol>main</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,6 +123,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bank.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CoinFlip.cpp" />
@@ -131,6 +135,9 @@
     <ClCompile Include="Slot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bank.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="BlackJack.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -155,6 +162,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Bank.resx">
+      <DependentUpon>Bank.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BlackJack.resx">
       <DependentUpon>BlackJack.h</DependentUpon>
     </EmbeddedResource>

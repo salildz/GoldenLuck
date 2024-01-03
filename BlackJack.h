@@ -203,7 +203,11 @@ namespace GoldenLuck {
 			this->Controls->Add(this->pnlGame);
 			this->Controls->Add(this->btnStay);
 			this->Controls->Add(this->btnHit);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->MaximizeBox = false;
 			this->Name = L"BlackJack";
+			this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 			this->Text = L"BlackJack";
 			this->Load += gcnew System::EventHandler(this, &BlackJack::BlackJack_Load);
 			this->pnlGame->ResumeLayout(false);
