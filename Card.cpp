@@ -3,6 +3,7 @@
 Card::Card() {
     suit = ' ';
     rank = 0;
+    faceUp = true;
 }
 
 Card::Card(Char newSuit, int newRank) {
@@ -19,6 +20,7 @@ Card::Card(Char newSuit, int newRank) {
     else {
         rank = newRank;
     }
+    faceUp = true;
 }
 
 Char Card::getSuit() {
@@ -46,4 +48,15 @@ void Card::setRank(int newRank) {
         rank = newRank;
     }
 }
- 
+
+void Card::makeHidden() {
+    faceUp = false;
+}
+
+void Card::makeVisible() {
+    faceUp = true;
+}
+
+bool Card::isFaceUp() {
+    return faceUp;
+}

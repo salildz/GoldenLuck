@@ -22,26 +22,26 @@ namespace GoldenLuck {
         dealCard(pokerTableHand);
     }
     void Poker::loadDealerCardImages()
+{
+    pnlGame->Controls->Clear();
+    array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
+    for (int i = 0; i < dealerHand->getHand()->Count; i++)
     {
-        pnlGame->Controls->Clear();
-        array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
-        for (int i = 0; i < dealerHand->getHand()->Count; i++)
-        {
-            cardPictureBoxes1[i] = gcnew PictureBox();
-            cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-            cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
-            cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
-            if (dealerHand->getHand()[i]->isFaceUp()) {
-                
-                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-            }
-            else {
-                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
-            }
-            pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
+        cardPictureBoxes1[i] = gcnew PictureBox();
+        cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
+        cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
+        cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+        if (dealerHand->getHand()[i]->isFaceUp()) {
+            
+            cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
         }
-        
-    }
+        else {
+            cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
+        }
+        pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
+    }
+    
+}
 
     void Poker::loadUserCardImages()
     {

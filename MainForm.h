@@ -4,6 +4,7 @@
 #include "Poker.h"
 #include "RockPaperScissors.h"
 #include "Slot.h"
+#include "Bank.h"
 
 namespace GoldenLuck {
 
@@ -20,8 +21,10 @@ namespace GoldenLuck {
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
+		
 		MainForm(void)
 		{
+
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
@@ -143,6 +146,7 @@ namespace GoldenLuck {
 			this->btnBank->TabIndex = 5;
 			this->btnBank->Text = L"Bank";
 			this->btnBank->UseVisualStyleBackColor = true;
+			this->btnBank->Click += gcnew System::EventHandler(this, &MainForm::btnBank_Click);
 			// 
 			// MainForm
 			// 
@@ -228,5 +232,9 @@ namespace GoldenLuck {
 		rockPaperScissors->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &MainForm::GameClosed);
 		rockPaperScissors->Show();
 	}
-	};
+	private: System::Void btnBank_Click(System::Object^ sender, System::EventArgs^ e) {
+		Bank^ bank = gcnew Bank();
+		bank->Show();
+	}
+};
 }
