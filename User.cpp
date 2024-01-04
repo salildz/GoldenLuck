@@ -3,8 +3,6 @@
 User::User() {
 
 }
-User::User(String^ newName, String^ newSurname, int newCredit) {
-	name = newName;
-	surname = newSurname;
+User::User(int newCredit) {
 	credit = newCredit;
 }

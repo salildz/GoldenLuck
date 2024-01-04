@@ -7,11 +7,8 @@ ref class User
 {
 public:
 	User();
-	User(String^ newName, String^ newSurname, int newCredit);
-	
-	static String^ name;
-	static String^ surname;
-	static int age;
+	User(int newCredit);
+
 	static int credit;
 };
 
