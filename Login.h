@@ -4,6 +4,7 @@
 #include <msclr/marshal_cppstd.h>
 #include <sstream>
 #include <vector>
+#include "MainForm.h"
 
 #pragma once
 namespace GoldenLuck {
@@ -103,12 +104,12 @@ namespace GoldenLuck {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->UsernameReg = (gcnew System::Windows::Forms::TextBox());
 			this->PasswordReg = (gcnew System::Windows::Forms::TextBox());
 			this->PasswordReg2 = (gcnew System::Windows::Forms::TextBox());
-			this->label6 = (gcnew System::Windows::Forms::Label());
 			label4 = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -199,7 +200,7 @@ namespace GoldenLuck {
 			// 
 			// Register
 			// 
-			this->Register->Location = System::Drawing::Point(241, 267);
+			this->Register->Location = System::Drawing::Point(600, 277);
 			this->Register->Name = L"Register";
 			this->Register->Size = System::Drawing::Size(112, 48);
 			this->Register->TabIndex = 8;
@@ -214,7 +215,7 @@ namespace GoldenLuck {
 			this->panel1->Controls->Add(this->UsernameLog);
 			this->panel1->Controls->Add(this->Password);
 			this->panel1->Controls->Add(this->PasswordLog);
-			this->panel1->Location = System::Drawing::Point(3, 3);
+			this->panel1->Location = System::Drawing::Point(461, 3);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(484, 272);
 			this->panel1->TabIndex = 9;
@@ -241,8 +242,16 @@ namespace GoldenLuck {
 			this->panel2->Controls->Add(this->PasswordReg2);
 			this->panel2->Location = System::Drawing::Point(-6, -14);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(470, 267);
+			this->panel2->Size = System::Drawing::Size(945, 267);
 			this->panel2->TabIndex = 0;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(208, 23);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(0, 13);
+			this->label6->TabIndex = 9;
 			// 
 			// label5
 			// 
@@ -293,21 +302,13 @@ namespace GoldenLuck {
 			this->PasswordReg2->TabIndex = 13;
 			this->PasswordReg2->TextChanged += gcnew System::EventHandler(this, &Login::PasswordReg2_TextChanged);
 			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(208, 23);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(0, 13);
-			this->label6->TabIndex = 9;
-			// 
 			// Login
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(216)),
 				static_cast<System::Int32>(static_cast<System::Byte>(224)));
-			this->ClientSize = System::Drawing::Size(467, 349);
+			this->ClientSize = System::Drawing::Size(951, 349);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->Log_in);
 			this->Controls->Add(this->Register);
@@ -322,13 +323,6 @@ namespace GoldenLuck {
 		}
 
 		void Loginfunc() {
-			if (panel2->Enabled == true || panel2->Visible == true) {
-				panel2->Enabled = false;
-				panel2->Visible = false;
-				panel1->Enabled = true;
-				panel1->Visible = true;
-			}
-			else {
 				std::fstream myFile;
 				myFile.open("User.txt", std::ios::in);
 
@@ -351,7 +345,12 @@ namespace GoldenLuck {
 							const char* passwordString = editPword.c_str();
 
 							if (std::strcmp(password, passwordString) == 0) {
-																													//go to menu
+								
+								//Hides Login
+								this->Hide();
+								//Initializes Main menu
+								MainForm^ mainForm = gcnew MainForm();
+								mainForm->Show();																		//go to menu
 							}
 							else {
 								label2->Text = "Wrong Password!";
@@ -360,16 +359,9 @@ namespace GoldenLuck {
 					}
 				}
 			}
-		}
+		
 
 		void Registerfunc() {
-			if (panel1->Enabled == true || panel1->Visible == true) {
-				panel1->Enabled = false;
-				panel1->Visible = false;
-				panel2->Enabled = true;
-				panel2->Visible = true;
-			}
-			else {
 
 				std::fstream myFile;
 				myFile.open("User.txt", std::ios::out);
@@ -386,7 +378,7 @@ namespace GoldenLuck {
 				
 				}
 			}
-		}
+		
 
 		std::vector<std::string> parseCommaDelimitedString(std::string line) {
 			std::vector<std::string> result;
