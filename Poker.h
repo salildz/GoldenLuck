@@ -59,7 +59,7 @@ namespace GoldenLuck {
 		void loadUserCardImages();
 		void loadTableCardImages();
 		void endGame();
-		Hand^ faceUpDealerHand(Hand^ hand);
+		void faceUpDealerHand();
 		int checkForNone(Hand^ hand);
 	protected:
 		~Poker()

@@ -20,44 +20,29 @@ namespace GoldenLuck {
         dealCard(pokerTableHand);
         dealCard(pokerTableHand);
         dealCard(pokerTableHand);
-
-        loadDealerCardImages();
     }
-    void Poker::loadDealerCardImages() // Gets the dealer cards from hand and add their images into picture boxes.
+    void Poker::loadDealerCardImages()
     {
-        if (dealerHand->getHiddenCard() == nullptr) {
-            pnlGame->Controls->Clear();
-            array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
-            for (int i = 0; i < dealerHand->getHand()->Count; i++)
-            {
-                cardPictureBoxes1[i] = gcnew PictureBox();
-                cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; 
-                cardPictureBoxes1[i]->Location = Point(i * 110, 10); // locate the picturebox
-                cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // adjusting size
-                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // chooses the pictures
-                pnlGame->Controls->Add(cardPictureBoxes1[i]); // adds picturebox to Game Panel
+        pnlGame->Controls->Clear();
+        array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
+        for (int i = 0; i < dealerHand->getHand()->Count; i++)
+        {
+            cardPictureBoxes1[i] = gcnew PictureBox();
+            cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
+            cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
+            cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+            if (dealerHand->getHand()[i]->isFaceUp()) {
+                
+                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
             }
-
+            else {
+                cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
+            }
+            pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
         }
-        else { // image of hidden card 
-            PictureBox^ cardPictureBox1 = gcnew PictureBox();
-            cardPictureBox1->SizeMode = PictureBoxSizeMode::Zoom; 
-            cardPictureBox1->Location = Point(0 * 110, 10); 
-            cardPictureBox1->Size = System::Drawing::Size(110, 154); 
-            cardPictureBox1->Image = Image::FromFile("cards\\BACK.png"); 
-            pnlGame->Controls->Add(cardPictureBox1); 
-            PictureBox^ cardPictureBox2 = gcnew PictureBox();
-            cardPictureBox2->SizeMode = PictureBoxSizeMode::Zoom; 
-            cardPictureBox2->Location = Point(1 * 110, 10); 
-            cardPictureBox2->Size = System::Drawing::Size(110, 154); 
-            cardPictureBox2->Image = Image::FromFile("cards\\BACK.png"); 
-            pnlGame->Controls->Add(cardPictureBox2); 
-
-        }
-
-
-
+        
     }
+
     void Poker::loadUserCardImages()
     {
         array<PictureBox^>^ cardPictureBoxes2 = gcnew array<PictureBox^>(userHand->getHand()->Count);
@@ -105,6 +90,7 @@ namespace GoldenLuck {
     }
     void Poker::dealHiddenCard(Hand^ hand) { // deal hidden card
         Card^ temp1 = deck->cards[deck->cards->Count - 1];
+        temp1->makeHidden();
         hand->addCardToHand(temp1);
         deck->cards->RemoveAt(deck->cards->Count - 1);
 
@@ -120,15 +106,13 @@ namespace GoldenLuck {
 
         pnlGame->Controls->Add(lblResult);
     }
-    Hand^ Poker::faceUpDealerHand(Hand^ hand) { // face up the dealers hidden card
-        Card^ card1 = hand->getHand()[0];
-        Card^ card2 = hand->getHand()[1];
-
-        dealerHand->resetHand();
-        dealerHand->getHand()->Insert(0, card1);
-        dealerHand->getHand()->Insert(1, card2);
-        pnlGame->Refresh();
-        return dealerHand;
+    void Poker::faceUpDealerHand() {
+        dealerHand->getHand()[0]->makeVisible();
+        dealerHand->getHand()[1]->makeVisible();
+        loadDealerCardImages();
+        loadUserCardImages();
+        loadTableCardImages();
+        
     }
 
     Hand^ Poker::sortForRank(Hand^ hand) // sort hand for rank
@@ -591,7 +575,7 @@ namespace GoldenLuck {
     }
 
     System::Void Poker::btnBet_Click(System::Object^ sender, System::EventArgs^ e) { // after bet it start to check hand and compare them from the vector
-        dealerHand = faceUpDealerHand(dealerHand);
+        faceUpDealerHand();
         int userMax = 0;
         int dealerMax = 0;
         std::vector<int> compare;
