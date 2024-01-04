@@ -129,6 +129,7 @@
     <ClCompile Include="CoinFlip.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Hand.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Poker.cpp" />
     <ClCompile Include="RockPaperScissors.cpp" />
@@ -147,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Hand.h" />
+    <ClInclude Include="Login.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -170,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CoinFlip.resx">
       <DependentUpon>CoinFlip.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
