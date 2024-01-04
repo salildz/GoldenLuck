@@ -129,10 +129,13 @@
     <ClCompile Include="CoinFlip.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Hand.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Poker.cpp" />
+    <ClCompile Include="Register.cpp" />
     <ClCompile Include="RockPaperScissors.cpp" />
     <ClCompile Include="Slot.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bank.h">
@@ -147,10 +150,16 @@
     </ClInclude>
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Hand.h" />
+    <ClInclude Include="Login.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Poker.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Register.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -160,22 +169,33 @@
     <ClInclude Include="Slot.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Bank.resx">
       <DependentUpon>Bank.h</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BlackJack.resx">
       <DependentUpon>BlackJack.h</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CoinFlip.resx">
       <DependentUpon>CoinFlip.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Poker.resx">
       <DependentUpon>Poker.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Register.resx">
+      <DependentUpon>Register.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RockPaperScissors.resx">
       <DependentUpon>RockPaperScissors.h</DependentUpon>
