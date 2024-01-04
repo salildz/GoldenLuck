@@ -15,7 +15,9 @@ namespace GoldenLuck {
 		}
 		else return false;
 	}
+
 	void RockPaperScissors::playRPSround() {				//each round gets played using this function
+
 		round++;
 		lblRound->Text = "Round " + round;
 		Dchoicegenerator();

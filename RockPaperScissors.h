@@ -285,13 +285,17 @@ namespace GoldenLuck {
 			if (scoreP == scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "Tie";
+
 				User::credit += Convert::ToInt32(comboBox->SelectedItem);
+
 				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP > scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "You Win!";
+
 				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+
 				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP < scoreD) {
@@ -342,7 +346,9 @@ namespace GoldenLuck {
 		labelBalance->Text = "Credit: " + User::credit.ToString();
 		labelBalance->Visible = true;
 		comboBox->Visible = true;
+
 	}
+
 	private: System::Void Rock_Click(System::Object^ sender, System::EventArgs^ e) {						//buttons...
 		Pchoice = 'R';
 		playRPSround();
@@ -355,12 +361,16 @@ namespace GoldenLuck {
 		Pchoice = 'S';
 		playRPSround();
 	}
+
 	private: System::Void start_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (canBet()) {
+
 			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
 			labelBalance->Text = "Credit: " + User::credit;
 			resetGame();
 		}
+
+
 
 	}
 	};

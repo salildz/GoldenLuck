@@ -1,5 +1,7 @@
 #include "Slot.h"
 
+
+
 using namespace System;
 using namespace System::Collections::Generic;
 
@@ -28,13 +30,17 @@ namespace GoldenLuck {
 	bool Slot::checkRoll(int Roll1, int Roll2, int Roll3) {					//to check if user won triple, double or nothing
 		if (Roll1 == Roll2 && Roll2 == Roll3) {
 			announcer->Text = "YOU WON TRIPLE!";
+
 			User::credit += Convert::ToInt32(comboBox->SelectedItem) * 3;
+
 			return true;
 			//wins triple
 		}
 		else if (Roll1 == Roll2 || Roll1 == Roll3 || Roll2 == Roll3) {
 			announcer->Text = "YOU WON DOUBLE!";
+
 			User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+
 			return true;
 			//wins double
 		}
@@ -52,6 +58,37 @@ namespace GoldenLuck {
 		{
 			SlotRoll(Roll, Slot);
 			System::Threading::Thread::Sleep(a);
+		}
+	} 
+	bool Slot::canBet() {
+		if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
+			return true;
+		}
+		else return false;
+	}
+	System::Void Slot::Slot_Load(System::Object^ sender, System::EventArgs^ e) {								//when the game loads for the first time this function is called
+
+		btnRoll->Visible = true;
+		Slot1->Visible = false;
+		Slot2->Visible = false;
+		Slot3->Visible = false;
+		comboBox->Visible = true;
+		labelBalance->Visible = true;
+		labelBalance->Text = "Credit: " + User::credit.ToString();
+		labelBalance->Show();
+
+	}
+	System::Void Slot::btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {							//when the roll button is clicked roll button gets disabled and the rolling starts
+		if (canBet()) {
+			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
+			labelBalance->Text = "Credit: " + User::credit.ToString();
+			btnRoll->Enabled = false;
+			btnRoll->Visible = false;
+			announcer->Visible = false;
+			playSlot();
+			announcer->Visible = true;
+			btnRoll->Visible = true;
+			btnRoll->Enabled = true;
 		}
 	}
 	bool Slot::canBet() {

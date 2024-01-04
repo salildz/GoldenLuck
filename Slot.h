@@ -2,6 +2,7 @@
 #include <iostream>
 #include "User.h"
 
+
 namespace GoldenLuck {
 
 	using namespace System;
@@ -187,6 +188,7 @@ namespace GoldenLuck {
 			   this->labelBalance->Size = System::Drawing::Size(180, 56);
 			   this->labelBalance->TabIndex = 14;
 			   this->labelBalance->Text = "Credit: " + User::credit.ToString();
+
 			   // 
 			   // Slot
 			   // 
@@ -211,8 +213,13 @@ namespace GoldenLuck {
 			   pictureBox->Load("SlotPhoto\\" + a + ".png");
 			   pictureBox->Refresh();
 		   }
+		 
+		   
+	};
+
 
 
 	};
+
 
 }
