@@ -1,5 +1,5 @@
 #pragma once
-
+#include "User.h"
 namespace GoldenLuck {
 
 	using namespace System;
@@ -19,11 +19,14 @@ namespace GoldenLuck {
 
 		char Pchoice, Dchoice;
 	private: System::Windows::Forms::PictureBox^ Dbox;
+	private: System::Windows::Forms::ComboBox^ comboBox;
+	private: System::Windows::Forms::Label^ labelBalance;
 
 	private: System::Windows::Forms::PictureBox^ Pbox;
 
 
 	public:
+		bool canBet();
 		RockPaperScissors(void)
 		{
 			InitializeComponent();
@@ -85,6 +88,8 @@ namespace GoldenLuck {
 			this->Pbox = (gcnew System::Windows::Forms::PictureBox());
 			this->lblD = (gcnew System::Windows::Forms::Label());
 			this->lblP = (gcnew System::Windows::Forms::Label());
+			this->comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->labelBalance = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Dbox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Pbox))->BeginInit();
@@ -204,12 +209,37 @@ namespace GoldenLuck {
 			this->lblP->Size = System::Drawing::Size(35, 47);
 			this->lblP->TabIndex = 8;
 			// 
+			// comboBox
+			// 
+			this->comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(188)),
+				static_cast<System::Int32>(static_cast<System::Byte>(224)));
+			this->comboBox->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->comboBox->FormattingEnabled = true;
+			this->comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {
+				L"100", L"500", L"1000", L"2000", L"3000", L"4000",
+					L"5000"
+			});
+			this->comboBox->Location = System::Drawing::Point(80, 414);
+			this->comboBox->Name = L"comboBox";
+			this->comboBox->Size = System::Drawing::Size(110, 21);
+			this->comboBox->TabIndex = 1;
+			this->comboBox->Text = L"0";
+			// 
+			// labelBalance
+			// 
+			this->labelBalance->Location = System::Drawing::Point(432, 414);
+			this->labelBalance->Name = L"labelBalance";
+			this->labelBalance->Size = System::Drawing::Size(120, 23);
+			this->labelBalance->TabIndex = 9;
+			// 
 			// RockPaperScissors
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(638, 498);
+			this->Controls->Add(this->labelBalance);
+			this->Controls->Add(this->comboBox);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->start);
 			this->Controls->Add(this->Scissor);
@@ -255,14 +285,19 @@ namespace GoldenLuck {
 			if (scoreP == scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "Tie";
+				User::credit+=Convert::ToInt32(comboBox->SelectedItem);
+				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP > scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "You Win!";
+				User::credit += Convert::ToInt32(comboBox->SelectedItem)*2;
+				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP < scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "You Lose!";
+				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 
 		}
@@ -304,6 +339,9 @@ namespace GoldenLuck {
 		lblRound->Visible = false;
 		lblResult->Visible = false;
 		start->Visible = true;
+		labelBalance->Text = "Credit: " + User::credit.ToString();
+		labelBalance->Visible = true;
+		comboBox->Visible = true;
 	} 
 	private: System::Void Rock_Click(System::Object^ sender, System::EventArgs^ e) {						//buttons...
 		Pchoice = 'R';
@@ -318,7 +356,12 @@ namespace GoldenLuck {
 		playRPSround();
 	}
 	private: System::Void start_Click(System::Object^ sender, System::EventArgs^ e) { 
-		resetGame();
+		if (canBet()){
+			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
+			labelBalance->Text = "Credit: " + User::credit;
+			resetGame();
+		}
+		
 	}
 };
 }
