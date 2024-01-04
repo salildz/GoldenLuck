@@ -9,7 +9,12 @@ namespace GoldenLuck {
 	static int round = 1, scoreP = 0, scoreD = 0;					
 
 	char Pchoice = ' ', Dchoice = ' ';
-
+	bool RockPaperScissors::canBet() {
+		if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
+			return true;
+		}
+		else return false;
+	}
 	void RockPaperScissors::playRPSround(){				//each round gets played using this function
 		round++;
 		lblRound->Text = "Round " + round;
