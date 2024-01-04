@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+
 namespace GoldenLuck {
 
 	using namespace System;
@@ -22,7 +23,7 @@ namespace GoldenLuck {
 			//
 			//TODO: Add the constructor code here
 			//
-			this->lblBalance->Text = "Credit: " + user->credit;
+			this->lblBalance->Text = "Credit: " + User::credit;
 		}
 
 	protected:
@@ -147,20 +148,20 @@ namespace GoldenLuck {
 		}
 #pragma endregion
 	private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (credit > 10000) {
+		if (User::credit > 10000) {
 			this->Controls->Add(this->lblError);
 			btnAdd->Enabled = false;
 		}
 		else {
 			String^ selectedValue = cmbbxBalance->SelectedItem->ToString();
 			int selectedAmount = Int32::Parse(selectedValue);
-			if ((credit + selectedAmount) > 10000) {
+			if ((User::credit + selectedAmount) > 10000) {
 				this->Controls->Add(this->lblError);
 				btnAdd->Enabled = false;
 			}
 			else {
-				credit += selectedAmount;
-				lblBalance->Text = "Credit: " + credit.ToString();
+				User::credit += selectedAmount;
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 
 		}
