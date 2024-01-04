@@ -1,11 +1,17 @@
 #include "Login.h"
-#include <windows.h>
-#include <fstream>
-
 using namespace System;
-using namespace System::Collections::Generic;
+using namespace System::Windows::Forms;
+
+
 
 namespace GoldenLuck {
+	[STAThreadAttribute]
+		void main(array < String^>^ args)
+	{
 
-
-};
+		Application::EnableVisualStyles();
+		Application::SetCompatibleTextRenderingDefault(0);
+		GoldenLuck::Login form;
+		Application::Run(% form);
+	}
+}
