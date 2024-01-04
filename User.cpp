@@ -1,9 +1,10 @@
 #include "User.h"
 
+User::User() {
 
-User::User(String^ newName, String^ newSurname, int newAge, int newCredit) {
+}
+User::User(String^ newName, String^ newSurname, int newCredit) {
 	name = newName;
 	surname = newSurname;
-	age = newAge;
 	credit = newCredit;
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "User.h"
 namespace GoldenLuck {
 
 	using namespace System;
@@ -15,14 +15,14 @@ namespace GoldenLuck {
 	public ref class Bank : public System::Windows::Forms::Form
 	{
 	public:
-		int credit = 0;
+		User^ user = gcnew User();
 		Bank(void)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
-			this->lblBalance->Text = "Credit: " + credit;
+			this->lblBalance->Text = "Credit: " + user->credit;
 		}
 
 	protected:
@@ -121,7 +121,6 @@ namespace GoldenLuck {
 			this->lblError->Size = System::Drawing::Size(300, 25);
 			this->lblError->TabIndex = 3;
 			this->lblError->Text = L"CREDIT CANNOT EXCEED 10000";
-
 			// 
 			// Bank
 			// 
@@ -132,7 +131,6 @@ namespace GoldenLuck {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->ClientSize = System::Drawing::Size(344, 231);
-
 			this->Controls->Add(this->btnAdd);
 			this->Controls->Add(this->cmbbxBalance);
 			this->Controls->Add(this->lblBalance);
@@ -142,6 +140,7 @@ namespace GoldenLuck {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Bank";
 			this->Text = L"Bank";
+			this->Load += gcnew System::EventHandler(this, &Bank::Bank_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -167,5 +166,7 @@ namespace GoldenLuck {
 		}
 
 	}
-	};
+	private: System::Void Bank_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

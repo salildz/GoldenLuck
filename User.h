@@ -6,11 +6,12 @@ using namespace System;
 ref class User
 {
 public:
-	User(String^ newName, String^ newSurname, int newAge, int newCredit);
+	User();
+	User(String^ newName, String^ newSurname, int newCredit);
 	
-	String^ name;
-	String^ surname;
-	int age;
-	int credit;
+	static String^ name;
+	static String^ surname;
+	static int age;
+	static int credit;
 };
 
