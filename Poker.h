@@ -13,18 +13,12 @@ namespace GoldenLuck {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for BlackJack
-	/// </summary>
 	public ref class Poker : public System::Windows::Forms::Form
 	{
 	public:
 		Poker(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 		Hand^ userHand;
 		Hand^ dealerHand;
@@ -65,12 +59,9 @@ namespace GoldenLuck {
 		void loadUserCardImages();
 		void loadTableCardImages();
 		void endGame();
-		Hand^ faceUpDealerHand(Hand^ hand);
+		void faceUpDealerHand();
 		int checkForNone(Hand^ hand);
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~Poker()
 		{
 			if (components)
@@ -80,17 +71,11 @@ namespace GoldenLuck {
 		}
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		void InitializeComponent(void)
+
+		void InitializeComponent(void)  //initalizes the buttons in the interface
 		{
 			this->pnlGame = (gcnew System::Windows::Forms::Panel());
 			this->lblResult = (gcnew System::Windows::Forms::Label());
@@ -98,17 +83,11 @@ namespace GoldenLuck {
 			this->btnBet = (gcnew System::Windows::Forms::Button());
 			this->pnlGame->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// pnlGame
-			// 
 			this->pnlGame->Controls->Add(this->lblResult);
 			this->pnlGame->Location = System::Drawing::Point(12, 12);
 			this->pnlGame->Name = L"pnlGame";
 			this->pnlGame->Size = System::Drawing::Size(920, 530);
 			this->pnlGame->TabIndex = 2;
-			// 
-			// lblResult
-			// 
 			this->lblResult->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(162)));
 			this->lblResult->Location = System::Drawing::Point(578, 162);
@@ -116,9 +95,6 @@ namespace GoldenLuck {
 			this->lblResult->Size = System::Drawing::Size(342, 202);
 			this->lblResult->TabIndex = 2;
 			this->lblResult->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// btnStart
-			// 
 			this->btnStart->BackColor = System::Drawing::Color::Teal;
 			this->btnStart->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->btnStart->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -137,9 +113,6 @@ namespace GoldenLuck {
 			this->btnStart->Text = L"Start";
 			this->btnStart->UseVisualStyleBackColor = false;
 			this->btnStart->Click += gcnew System::EventHandler(this, &Poker::btnStart_Click);
-			// 
-			// btnBet
-			// 
 			this->btnBet->BackColor = System::Drawing::Color::Teal;
 			this->btnBet->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->btnBet->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -157,10 +130,7 @@ namespace GoldenLuck {
 			this->btnBet->TabIndex = 4;
 			this->btnBet->Text = L"Bet";
 			this->btnBet->UseVisualStyleBackColor = false;
-			this->btnBet->Click += gcnew System::EventHandler(this, &Poker::btnBet_Click);
-			// 
-			// Poker
-			// 
+			this->btnBet->Click += gcnew System::EventHandler(this, &Poker::btnBet_Click); 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(181)), static_cast<System::Int32>(static_cast<System::Byte>(203)),
@@ -186,11 +156,7 @@ namespace GoldenLuck {
 #pragma endregion
 	private: System::Void Poker_Load(System::Object^ sender, System::EventArgs^ e) {
 
-
 	}
-
-
-
 	};
 
 }
