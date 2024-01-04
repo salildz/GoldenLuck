@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "User.h"
 
 namespace GoldenLuck {
 
@@ -25,13 +26,13 @@ namespace GoldenLuck {
 			//
 		}
 
-		void Slot::playSlot();
-
-		bool Slot::checkRoll(int Roll1, int Roll2, int Roll3);
-
-		void Slot::SlotRoll(int& Roll, PictureBox^ Slot);
-
-		void Slot::SlotAnimation(int& a, PictureBox^ Slot);
+		void playSlot();
+		System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e);
+		bool checkRoll(int Roll1, int Roll2, int Roll3);
+		System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e);
+		void SlotRoll(int& Roll, PictureBox^ Slot);
+		bool canBet();
+		void SlotAnimation(int& a, PictureBox^ Slot);
 
 	protected:
 		/// <summary>
@@ -52,6 +53,9 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 
 	private: System::Windows::Forms::Label^ announcer;
+	private: System::Windows::Forms::ComboBox^ comboBox;
+	private: System::Windows::Forms::Label^ labelBalance;
+
 
 
 
@@ -77,6 +81,8 @@ namespace GoldenLuck {
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
 			   this->announcer = (gcnew System::Windows::Forms::Label());
 			   this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			   this->comboBox = (gcnew System::Windows::Forms::ComboBox());
+			   this->labelBalance = (gcnew System::Windows::Forms::Label());
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot2))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot3))->BeginInit();
@@ -127,6 +133,8 @@ namespace GoldenLuck {
 			   // panel1
 			   // 
 			   this->panel1->BackColor = System::Drawing::Color::Transparent;
+			   this->panel1->Controls->Add(this->labelBalance);
+			   this->panel1->Controls->Add(this->comboBox);
 			   this->panel1->Controls->Add(this->announcer);
 			   this->panel1->Controls->Add(this->Slot2);
 			   this->panel1->Controls->Add(this->Slot1);
@@ -154,6 +162,32 @@ namespace GoldenLuck {
 			   this->contextMenuStrip1->Name = L"contextMenuStrip1";
 			   this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
 			   // 
+			   // comboBox
+			   // 
+			   this->comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(188)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(224)));
+			   this->comboBox->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			   this->comboBox->FormattingEnabled = true;
+			   this->comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {
+				   L"100", L"500", L"1000", L"2000", L"3000", L"4000",
+					   L"5000"
+			   });
+			   this->comboBox->Location = System::Drawing::Point(30, 30);
+			   this->comboBox->Name = L"comboBox";
+			   this->comboBox->Size = System::Drawing::Size(110, 21);
+			   this->comboBox->TabIndex = 1;
+			   this->comboBox->Text = L"0";
+			   // 
+			   // labelBalance
+			   // 
+			   this->labelBalance->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(162)));
+			   this->labelBalance->Location = System::Drawing::Point(765, 9);
+			   this->labelBalance->Name = L"labelBalance";
+			   this->labelBalance->Size = System::Drawing::Size(180, 56);
+			   this->labelBalance->TabIndex = 14;
+			   this->labelBalance->Text = "Credit: " + User::credit.ToString();
+			   // 
 			   // Slot
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -178,24 +212,7 @@ namespace GoldenLuck {
 			   pictureBox->Refresh();
 		   }
 
-#pragma endregion
 
-	private: System::Void Slot_Load(System::Object^ sender, System::EventArgs^ e) {								//when the game loads for the first time this function is called
-		
-		btnRoll->Visible = true;
-		Slot1->Visible = false;
-		Slot2->Visible = false;
-		Slot3->Visible = false;
+	};
 
-	}
-	private: System::Void btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {							//when the roll button is clicked roll button gets disabled and the rolling starts
-		btnRoll->Enabled = false;
-		btnRoll->Visible = false;
-		announcer->Visible = false;
-		playSlot();
-		announcer->Visible = true;
-		btnRoll->Visible = true;
-		btnRoll->Enabled = true;
-	}
-};
 }

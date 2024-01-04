@@ -3,7 +3,7 @@
 #include "Hand.h"
 #include <vector>
 #include <iostream>
-
+#include "User.h"
 namespace GoldenLuck {
 
 	using namespace System;
@@ -36,6 +36,8 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::Label^ lblUser;
 	private: System::Windows::Forms::Label^ lblDealer;
 	private: System::Windows::Forms::Label^ lblResult;
+	private: System::Windows::Forms::Label^ lblBalance;
+	private: System::Windows::Forms::ComboBox^ comboBox;
 
 
 
@@ -83,6 +85,8 @@ namespace GoldenLuck {
 			this->lblUser = (gcnew System::Windows::Forms::Label());
 			this->lblDealer = (gcnew System::Windows::Forms::Label());
 			this->btnStart = (gcnew System::Windows::Forms::Button());
+			this->lblBalance = (gcnew System::Windows::Forms::Label());
+			this->comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->pnlGame->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -191,6 +195,33 @@ namespace GoldenLuck {
 			this->btnStart->UseVisualStyleBackColor = false;
 			this->btnStart->Click += gcnew System::EventHandler(this, &BlackJack::btnStart_Click);
 			// 
+			// lblBalance
+			// 
+			this->lblBalance->BackColor = System::Drawing::Color::Transparent;
+			this->lblBalance->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(162)));
+			this->lblBalance->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->lblBalance->Location = System::Drawing::Point(728, 563);
+			this->lblBalance->Name = L"lblBalance";
+			this->lblBalance->Size = System::Drawing::Size(164, 55);
+			this->lblBalance->TabIndex = 4;
+			// 
+			// comboBox
+			// 
+			this->comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(188)),
+				static_cast<System::Int32>(static_cast<System::Byte>(224)));
+			this->comboBox->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->comboBox->FormattingEnabled = true;
+			this->comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {
+				L"100", L"500", L"1000", L"2000", L"3000", L"4000",
+					L"5000"
+			});
+			this->comboBox->Location = System::Drawing::Point(27, 624);
+			this->comboBox->Name = L"comboBox";
+			this->comboBox->Size = System::Drawing::Size(110, 21);
+			this->comboBox->TabIndex = 1;
+			this->comboBox->Text = L"0";
+			// 
 			// BlackJack
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -199,6 +230,8 @@ namespace GoldenLuck {
 				static_cast<System::Int32>(static_cast<System::Byte>(225)));
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(944, 681);
+			this->Controls->Add(this->comboBox);
+			this->Controls->Add(this->lblBalance);
 			this->Controls->Add(this->btnStart);
 			this->Controls->Add(this->pnlGame);
 			this->Controls->Add(this->btnStay);
@@ -281,37 +314,43 @@ namespace GoldenLuck {
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (reduceDealerAce() > 21) {
 				lblResult->Text = "You Win!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (reduceUserAce() == reduceDealerAce()) {
 				lblResult->Text = "Tie!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-
+				User::credit += Convert::ToInt32(comboBox->SelectedItem);
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (reduceUserAce() > reduceDealerAce()) {
 				lblResult->Text = "You Win!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (reduceUserAce() < reduceDealerAce()) {
 				lblResult->Text = "You Lose!";
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
+				lblBalance->Text = "Credit: " + User::credit.ToString();
 
 			}
 			pnlGame->Controls->Add(lblResult);
+			btnStart->Enabled = true;
+			comboBox->Visible = true;
 		}
 		void faceUpDealerHand() {
 			dealerHand->getHand()[0]->makeVisible();
@@ -321,32 +360,51 @@ namespace GoldenLuck {
 			pnlGame->Refresh();
 		}
 
-
+		bool canBet() {
+			if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
+				return true;
+			}
+			else return false;
+		}
 #pragma endregion
 	private: System::Void BlackJack_Load(System::Object^ sender, System::EventArgs^ e) {
 		btnHit->Visible = false;
 		btnStay->Visible = false;
 		lblDealer->Visible = false;
 		lblUser->Visible = false;
+		lblBalance->Visible = false;
 
 	}
 
 	private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
 		resetGame();
-		pnlGame->Controls->Clear();
-		btnHit->Visible = true;
-		btnStay->Visible = true;
-		lblDealer->Visible = true;
-		lblUser->Visible = true;
-		btnHit->Enabled = true;
-		btnStay->Enabled = true;
-		initializeGame();
-		loadDealerCardImages();
-		loadUserCardImages();
-		if (reduceUserAce() == 21) {
+		if (canBet()) {
+			pnlGame->Controls->Clear();
+			btnStart->Enabled = false;
+			comboBox->Visible = false;
+			btnHit->Visible = true;
+			btnStay->Visible = true;
+			lblDealer->Visible = true;
+			lblUser->Visible = true;
+			btnHit->Enabled = true;
+			btnStay->Enabled = true;
+			lblBalance->Visible = true;
+			lblBalance->Text = "Credit: " + User::credit.ToString();
+			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
+			lblBalance->Text = "Credit: " + User::credit.ToString();
+			initializeGame();
+			loadDealerCardImages();
+			loadUserCardImages();
+			if (reduceUserAce() == 21) {
+				endGame();
+			}
 
-			endGame();
 		}
+		else {
+			lblResult->Text = "You don't have enough credit.";
+			lblResult->Show();
+		}
+
 	}
 	private: System::Void btnHit_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (reduceUserAce() < 21) {
@@ -354,7 +412,8 @@ namespace GoldenLuck {
 			loadUserCardImages();
 		}
 		if (reduceUserAce() == 21) {
-
+			User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2.5;
+			lblBalance->Text = "Credit: " + User::credit.ToString();
 			endGame();
 		}
 		else if (reduceUserAce() > 21) {
