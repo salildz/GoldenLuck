@@ -16,7 +16,6 @@ namespace GoldenLuck {
 	public ref class Bank : public System::Windows::Forms::Form
 	{
 	public:
-		User^ user = gcnew User();
 		Bank(void)
 		{
 			InitializeComponent();
