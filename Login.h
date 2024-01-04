@@ -1,8 +1,12 @@
 #include <fstream>
+#include <iostream>
+#include <string>
+#include <msclr/marshal_cppstd.h>
+#include <sstream>
+#include <vector>
 
 #pragma once
 namespace GoldenLuck {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -62,6 +66,9 @@ namespace GoldenLuck {
 	private: System::Windows::Forms::TextBox^ PasswordReg;
 
 	private: System::Windows::Forms::TextBox^ UsernameReg;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
 
 
 
@@ -94,11 +101,14 @@ namespace GoldenLuck {
 			this->PasswordLog = (gcnew System::Windows::Forms::TextBox());
 			this->Register = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->UsernameReg = (gcnew System::Windows::Forms::TextBox());
 			this->PasswordReg = (gcnew System::Windows::Forms::TextBox());
 			this->PasswordReg2 = (gcnew System::Windows::Forms::TextBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			label4 = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -199,17 +209,28 @@ namespace GoldenLuck {
 			// 
 			// panel1
 			// 
+			this->panel1->Controls->Add(this->label2);
 			this->panel1->Controls->Add(this->Username);
 			this->panel1->Controls->Add(this->UsernameLog);
 			this->panel1->Controls->Add(this->Password);
 			this->panel1->Controls->Add(this->PasswordLog);
-			this->panel1->Location = System::Drawing::Point(0, 3);
+			this->panel1->Location = System::Drawing::Point(3, 3);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(484, 272);
 			this->panel1->TabIndex = 9;
 			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(220, 52);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(0, 13);
+			this->label2->TabIndex = 9;
+			// 
 			// panel2
 			// 
+			this->panel2->Controls->Add(this->label6);
+			this->panel2->Controls->Add(this->label5);
 			this->panel2->Controls->Add(this->panel1);
 			this->panel2->Controls->Add(this->label1);
 			this->panel2->Controls->Add(this->label3);
@@ -222,6 +243,15 @@ namespace GoldenLuck {
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(470, 267);
 			this->panel2->TabIndex = 0;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(0, 0);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(35, 13);
+			this->label5->TabIndex = 14;
+			this->label5->Text = L"label5";
 			// 
 			// label1
 			// 
@@ -263,13 +293,21 @@ namespace GoldenLuck {
 			this->PasswordReg2->TabIndex = 13;
 			this->PasswordReg2->TextChanged += gcnew System::EventHandler(this, &Login::PasswordReg2_TextChanged);
 			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(208, 23);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(0, 13);
+			this->label6->TabIndex = 9;
+			// 
 			// Login
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(216)),
 				static_cast<System::Int32>(static_cast<System::Byte>(224)));
-			this->ClientSize = System::Drawing::Size(454, 331);
+			this->ClientSize = System::Drawing::Size(467, 349);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->Log_in);
 			this->Controls->Add(this->Register);
@@ -284,19 +322,91 @@ namespace GoldenLuck {
 		}
 
 		void Loginfunc() {
-			if ()
+			if (panel2->Enabled == true || panel2->Visible == true) {
+				panel2->Enabled = false;
+				panel2->Visible = false;
+				panel1->Enabled = true;
+				panel1->Visible = true;
+			}
+			else {
+				std::fstream myFile;
+				myFile.open("User.txt", std::ios::in);
+
+				if (myFile.is_open()) {
+					std::string line;
+
+					while (getline(myFile, line)) {
+
+						std::vector<std::string> parsedline = parseCommaDelimitedString(line);
+						const char* username = parsedline.at(0).c_str();
+
+						std::string editUname = msclr::interop::marshal_as<std::string>(UsernameLog->Text);
+						const char* usernameString = editUname.c_str();
+
+						if (std::strcmp(username, usernameString) == 0) {
+
+							const char* password = parsedline.at(1).c_str();
+
+							std::string editPword = msclr::interop::marshal_as<std::string>(PasswordLog->Text);
+							const char* passwordString = editPword.c_str();
+
+							if (std::strcmp(password, passwordString) == 0) {
+																													//go to menu
+							}
+							else {
+								label2->Text = "Wrong Password!";
+							}
+						}
+					}
+				}
+			}
 		}
 
 		void Registerfunc() {
+			if (panel1->Enabled == true || panel1->Visible == true) {
+				panel1->Enabled = false;
+				panel1->Visible = false;
+				panel2->Enabled = true;
+				panel2->Visible = true;
+			}
+			else {
 
+				std::fstream myFile;
+				myFile.open("User.txt", std::ios::out);
+
+				if (PasswordReg->Text != PasswordReg2->Text) {
+					label6->Text = "Passwords are not the same";
+				}
+				else if (myFile.is_open() && AgeTick->Checked && !String::IsNullOrEmpty(UsernameReg->Text) && !String::IsNullOrEmpty(PasswordReg->Text)) {
+
+					std::string Uname = msclr::interop::marshal_as<std::string>(UsernameReg->Text);
+					std::string Pword = msclr::interop::marshal_as<std::string>(PasswordReg->Text);
+					myFile << Uname << "," << Pword << "," << "0" << "\n";
+					myFile.close();
+				
+				}
+			}
 		}
 
+		std::vector<std::string> parseCommaDelimitedString(std::string line) {
+			std::vector<std::string> result;
+			std::stringstream s_stream(line);
+
+			while (s_stream.good()) {
+				std::string substr;
+				getline(s_stream, substr, ',');
+				result.push_back(substr);
+			}
+			return result;
+		}
+		
 #pragma endregion
+
+private: System::Void Login_Load(System::Object^ sender, System::EventArgs^ e) {		
+		}
 private: System::Void Log_in_Click(System::Object^ sender, System::EventArgs^ e) {
-	panel2->Enabled = false;
-	panel2->Visible = false;
-	Loginfunc();
-}
+		Loginfunc();
+		}
 private: System::Void UsernameLog_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void PasswordLog_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -310,9 +420,7 @@ private: System::Void PasswordReg2_TextChanged(System::Object^ sender, System::E
 private: System::Void AgeTick_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void Register_Click(System::Object^ sender, System::EventArgs^ e) {
-	panel1->Enabled = false;
-	panel1->Visible = false;
-	Registerfunc();
+		Registerfunc();
 }
 };
 }
