@@ -251,13 +251,13 @@ namespace GoldenLuck {
 		{
 			array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
 
-			// PictureBox kontrollerine resim atanmasý
+			// PictureBox kontrollerine resim atanmasÃ½
 			for (int i = 0; i < dealerHand->getHand()->Count; i++)
 			{
 				cardPictureBoxes1[i] = gcnew PictureBox();
-				cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
-				cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+				cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sÃ½Ã°acak Ã¾ekilde ayarlar
+				cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larÃ½n konumu
+				cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larÃ½n boyutu
 
 				if (dealerHand->getHand()[i]->isFaceUp()) {
 					if (i == 0) {
@@ -268,7 +268,7 @@ namespace GoldenLuck {
 				else {
 					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
 				}
-				pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larý pnlGame panele ekler
+				pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larÃ½ pnlGame panele ekler
 			}
 
 			pnlGame->Controls->Add(lblDealer);
@@ -288,15 +288,15 @@ namespace GoldenLuck {
 
 			array<PictureBox^>^ cardPictureBoxes2 = gcnew array<PictureBox^>(userHand->getHand()->Count);
 
-			// PictureBox kontrollerine resim atanmasý
+			// PictureBox kontrollerine resim atanmasÃ½
 			for (int i = 0; i < userHand->getHand()->Count; i++)
 			{
 				cardPictureBoxes2[i] = gcnew PictureBox();
-				cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBoxes2[i]->Location = Point(i * 110, 366); // PictureBox'larýn konumu
-				cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
+				cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sÃ½Ã°acak Ã¾ekilde ayarlar
+				cardPictureBoxes2[i]->Location = Point(i * 110, 366); // PictureBox'larÃ½n konumu
+				cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larÃ½n boyutu
 				cardPictureBoxes2[i]->Image = Image::FromFile("cards\\" + userHand->getHand()[i]->getRank() + "-" + userHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-				pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'larý pnlGame panele ekler
+				pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'larÃ½ pnlGame panele ekler
 
 			}
 			pnlGame->Controls->Add(lblUser);
@@ -321,7 +321,7 @@ namespace GoldenLuck {
 				btnHit->Enabled = false;
 				btnStay->Enabled = false;
 				faceUpDealerHand();
-				User::credit += Convert::ToInt32(comboBox->SelectedItem)*2;
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
 				lblBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (reduceUserAce() == reduceDealerAce()) {
@@ -404,7 +404,6 @@ namespace GoldenLuck {
 			lblResult->Text = "You don't have enough credit.";
 			lblResult->Show();
 		}
-		
 	}
 	private: System::Void btnHit_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (reduceUserAce() < 21) {

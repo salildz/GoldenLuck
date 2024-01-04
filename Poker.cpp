@@ -38,7 +38,7 @@ namespace GoldenLuck {
 			else {
 				cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
 			}
-			pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
+			pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
 		}
 
 	}
@@ -622,7 +622,9 @@ namespace GoldenLuck {
 			}
 			if (userMax > dealerMax) {
 				lblResult->Text = "You Win!" + userMax + "  " + dealerMax;
-				User::credit += Convert::ToInt32(comboBox->SelectedItem)*2;
+
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+
 				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (userMax < dealerMax) {
@@ -652,13 +654,10 @@ namespace GoldenLuck {
 		loadDealerCardImages();
 		loadUserCardImages();
 		loadTableCardImages();
-			
-		
-		
+
+
+
+
+
 	}
 }
-
-
-
-
-

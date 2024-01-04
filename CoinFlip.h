@@ -3,7 +3,7 @@
 namespace GoldenLuck {
 
 	using namespace System::Collections::Generic;
-	using namespace std;
+
 
 	using namespace System;
 	using namespace System::ComponentModel;

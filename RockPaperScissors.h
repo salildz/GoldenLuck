@@ -68,7 +68,7 @@ namespace GoldenLuck {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -280,18 +280,22 @@ namespace GoldenLuck {
 			Paper->Enabled = false;
 			Scissor->Enabled = false;
 			start->Enabled = true;
-			
+
 
 			if (scoreP == scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "Tie";
-				User::credit+=Convert::ToInt32(comboBox->SelectedItem);
+
+				User::credit += Convert::ToInt32(comboBox->SelectedItem);
+
 				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP > scoreD) {
 				lblRound->Text = " ";
 				lblResult->Text = "You Win!";
-				User::credit += Convert::ToInt32(comboBox->SelectedItem)*2;
+
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
+
 				labelBalance->Text = "Credit: " + User::credit.ToString();
 			}
 			else if (scoreP < scoreD) {
@@ -330,7 +334,7 @@ namespace GoldenLuck {
 			Pbox->Refresh();																				 //refresh so we can see the new picture
 			Dbox->Refresh();
 		}
-		
+
 #pragma endregion
 	private: System::Void RockPaperScissors_Load(System::Object^ sender, System::EventArgs^ e) {             //makes sure user cant interact with the game before clicking start.
 		Rock->Visible = false;
@@ -342,26 +346,32 @@ namespace GoldenLuck {
 		labelBalance->Text = "Credit: " + User::credit.ToString();
 		labelBalance->Visible = true;
 		comboBox->Visible = true;
-	} 
+
+	}
+
 	private: System::Void Rock_Click(System::Object^ sender, System::EventArgs^ e) {						//buttons...
 		Pchoice = 'R';
 		playRPSround();
 	}
-	private: System::Void Paper_Click(System::Object^ sender, System::EventArgs^ e) { 
+	private: System::Void Paper_Click(System::Object^ sender, System::EventArgs^ e) {
 		Pchoice = 'P';
 		playRPSround();
 	}
-	private: System::Void Scissor_Click(System::Object^ sender, System::EventArgs^ e) { 
+	private: System::Void Scissor_Click(System::Object^ sender, System::EventArgs^ e) {
 		Pchoice = 'S';
 		playRPSround();
 	}
-	private: System::Void start_Click(System::Object^ sender, System::EventArgs^ e) { 
-		if (canBet()){
+
+	private: System::Void start_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (canBet()) {
+
 			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
 			labelBalance->Text = "Credit: " + User::credit;
 			resetGame();
 		}
-		
+
+
+
 	}
-};
+	};
 }

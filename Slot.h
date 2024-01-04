@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "User.h"
 
 
 namespace GoldenLuck {
@@ -186,6 +187,8 @@ namespace GoldenLuck {
 			   this->labelBalance->Name = L"labelBalance";
 			   this->labelBalance->Size = System::Drawing::Size(180, 56);
 			   this->labelBalance->TabIndex = 14;
+			   this->labelBalance->Text = "Credit: " + User::credit.ToString();
+
 			   // 
 			   // Slot
 			   // 
@@ -213,5 +216,10 @@ namespace GoldenLuck {
 		 
 		   
 	};
+
+
+
+	};
+
 
 }
