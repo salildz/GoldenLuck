@@ -9,6 +9,7 @@
 #include "User.h"
 #include "Register.h"
 
+
 namespace GoldenLuck {
 
 	using namespace System;
@@ -239,11 +240,19 @@ namespace GoldenLuck {
 			}
 			return result;
 		}
+		void PlayMusic(const char* filePath, bool loop) {
+			// Use SND_ASYNC for asynchronous playback
+			// Use SND_LOOP for looping playback
+			UINT flags = SND_ASYNC | (loop ? SND_LOOP : 0);
+
+			PlaySoundA(filePath, NULL, flags);
+		}
 
 #pragma endregion
 	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {	
 		this->Show();																											//Shows MainForm again
 	}
+		   
 	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {				//when the program is terminated
 		std::fstream myFile;																									//saves the data so its not lost
 		myFile.open("User.txt", std::ios::out);																					
@@ -260,7 +269,7 @@ namespace GoldenLuck {
 	}
 
 	private: System::Void Login_Load(System::Object^ sender, System::EventArgs^ e) {
-
+		PlayMusic("musics\\music.wav", true);
 	}
 
 	private: System::Void btnSignIn_Click(System::Object^ sender, System::EventArgs^ e) {
