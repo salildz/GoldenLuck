@@ -213,13 +213,12 @@ namespace GoldenLuck {
 			   pictureBox->Load("SlotPhoto\\" + a + ".png");
 			   pictureBox->Refresh();
 		   }
-		 
-		   
+
+	};
 	};
 
 
 
-	};
+	
 
 
-}

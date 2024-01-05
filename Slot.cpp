@@ -78,6 +78,7 @@ namespace GoldenLuck {
 		labelBalance->Show();
 
 	}
+	
 	System::Void Slot::btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {							//when the roll button is clicked roll button gets disabled and the rolling starts
 		if (canBet()) {
 			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
@@ -91,36 +92,8 @@ namespace GoldenLuck {
 			btnRoll->Enabled = true;
 		}
 	}
-	bool Slot::canBet() {
-		if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
-			return true;
-		}
-		else return false;
-	}
-	System::Void Slot::Slot_Load(System::Object^ sender, System::EventArgs^ e) {								//when the game loads for the first time this function is called
-
-		btnRoll->Visible = true;
-		Slot1->Visible = false;
-		Slot2->Visible = false;
-		Slot3->Visible = false;
-		comboBox->Visible = true;
-		labelBalance->Visible = true;
-		labelBalance->Text = "Credit: " + User::credit.ToString();
-		
-
-	}
-	System::Void Slot::btnRoll_Click(System::Object^ sender, System::EventArgs^ e) {							//when the roll button is clicked roll button gets disabled and the rolling starts
-		if (canBet()) {
-			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
-			labelBalance->Text = "Credit: " + User::credit.ToString();
-			btnRoll->Enabled = false;
-			btnRoll->Visible = false;
-			announcer->Visible = false;
-			playSlot();
-			announcer->Visible = true;
-			btnRoll->Visible = true;
-			btnRoll->Enabled = true;
-		}
-	}
+	
+	
+	
 
 };
