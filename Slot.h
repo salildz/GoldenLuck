@@ -80,10 +80,10 @@ namespace GoldenLuck {
 			   this->Slot2 = (gcnew System::Windows::Forms::PictureBox());
 			   this->Slot3 = (gcnew System::Windows::Forms::PictureBox());
 			   this->panel1 = (gcnew System::Windows::Forms::Panel());
+			   this->labelBalance = (gcnew System::Windows::Forms::Label());
+			   this->comboBox = (gcnew System::Windows::Forms::ComboBox());
 			   this->announcer = (gcnew System::Windows::Forms::Label());
 			   this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
-			   this->comboBox = (gcnew System::Windows::Forms::ComboBox());
-			   this->labelBalance = (gcnew System::Windows::Forms::Label());
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot2))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot3))->BeginInit();
@@ -103,6 +103,7 @@ namespace GoldenLuck {
 			   // 
 			   this->btnRoll->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->btnRoll->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->btnRoll->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(162)));
 			   this->btnRoll->Location = System::Drawing::Point(286, 543);
@@ -146,22 +147,14 @@ namespace GoldenLuck {
 			   this->panel1->Size = System::Drawing::Size(992, 617);
 			   this->panel1->TabIndex = 10;
 			   // 
-			   // announcer
+			   // labelBalance
 			   // 
-			   this->announcer->Anchor = System::Windows::Forms::AnchorStyles::None;
-			   this->announcer->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 25, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			   this->labelBalance->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(162)));
-			   this->announcer->ForeColor = System::Drawing::Color::Black;
-			   this->announcer->Location = System::Drawing::Point(22, 9);
-			   this->announcer->Name = L"announcer";
-			   this->announcer->Size = System::Drawing::Size(970, 42);
-			   this->announcer->TabIndex = 12;
-			   this->announcer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			   // 
-			   // contextMenuStrip1
-			   // 
-			   this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			   this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
+			   this->labelBalance->Location = System::Drawing::Point(765, 9);
+			   this->labelBalance->Name = L"labelBalance";
+			   this->labelBalance->Size = System::Drawing::Size(180, 56);
+			   this->labelBalance->TabIndex = 14;
 			   // 
 			   // comboBox
 			   // 
@@ -179,16 +172,22 @@ namespace GoldenLuck {
 			   this->comboBox->TabIndex = 1;
 			   this->comboBox->Text = L"0";
 			   // 
-			   // labelBalance
+			   // announcer
 			   // 
-			   this->labelBalance->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			   this->announcer->Anchor = System::Windows::Forms::AnchorStyles::None;
+			   this->announcer->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 25, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(162)));
-			   this->labelBalance->Location = System::Drawing::Point(765, 9);
-			   this->labelBalance->Name = L"labelBalance";
-			   this->labelBalance->Size = System::Drawing::Size(180, 56);
-			   this->labelBalance->TabIndex = 14;
-			   this->labelBalance->Text = "Credit: " + User::credit.ToString();
-
+			   this->announcer->ForeColor = System::Drawing::Color::Black;
+			   this->announcer->Location = System::Drawing::Point(22, 9);
+			   this->announcer->Name = L"announcer";
+			   this->announcer->Size = System::Drawing::Size(970, 42);
+			   this->announcer->TabIndex = 12;
+			   this->announcer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			   // 
+			   // contextMenuStrip1
+			   // 
+			   this->contextMenuStrip1->Name = L"contextMenuStrip1";
+			   this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
 			   // 
 			   // Slot
 			   // 
@@ -198,6 +197,7 @@ namespace GoldenLuck {
 			   this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			   this->ClientSize = System::Drawing::Size(991, 607);
 			   this->Controls->Add(this->panel1);
+			   this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			   this->Name = L"Slot";
 			   this->Text = L"Slot";
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Slot1))->EndInit();

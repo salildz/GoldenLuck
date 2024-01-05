@@ -82,6 +82,7 @@ namespace GoldenLuck {
 
 		void InitializeComponent(void)  //initalizes the buttons in the interface
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Poker::typeid));
 			this->pnlGame = (gcnew System::Windows::Forms::Panel());
 			this->lblResult = (gcnew System::Windows::Forms::Label());
 			this->btnStart = (gcnew System::Windows::Forms::Button());
@@ -186,9 +187,10 @@ namespace GoldenLuck {
 			this->Controls->Add(this->btnBet);
 			this->Controls->Add(this->btnStart);
 			this->Controls->Add(this->pnlGame);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Poker";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"BlackJack";
+			this->Text = L"Poker";
 			this->Load += gcnew System::EventHandler(this, &Poker::Poker_Load);
 			this->pnlGame->ResumeLayout(false);
 			this->ResumeLayout(false);

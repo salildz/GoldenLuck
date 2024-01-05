@@ -77,6 +77,7 @@ namespace GoldenLuck {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(RockPaperScissors::typeid));
 			this->Paper = (gcnew System::Windows::Forms::Button());
 			this->Rock = (gcnew System::Windows::Forms::Button());
 			this->Scissor = (gcnew System::Windows::Forms::Button());
@@ -98,6 +99,7 @@ namespace GoldenLuck {
 			// Paper
 			// 
 			this->Paper->BackColor = System::Drawing::Color::Firebrick;
+			this->Paper->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->Paper->Location = System::Drawing::Point(252, 321);
 			this->Paper->Name = L"Paper";
 			this->Paper->Size = System::Drawing::Size(118, 72);
@@ -110,6 +112,7 @@ namespace GoldenLuck {
 			// 
 			this->Rock->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
+			this->Rock->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->Rock->Location = System::Drawing::Point(80, 321);
 			this->Rock->Name = L"Rock";
 			this->Rock->Size = System::Drawing::Size(117, 72);
@@ -121,6 +124,7 @@ namespace GoldenLuck {
 			// Scissor
 			// 
 			this->Scissor->BackColor = System::Drawing::Color::YellowGreen;
+			this->Scissor->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->Scissor->Location = System::Drawing::Point(432, 321);
 			this->Scissor->Name = L"Scissor";
 			this->Scissor->Size = System::Drawing::Size(120, 72);
@@ -245,6 +249,7 @@ namespace GoldenLuck {
 			this->Controls->Add(this->Scissor);
 			this->Controls->Add(this->Rock);
 			this->Controls->Add(this->Paper);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"RockPaperScissors";
 			this->Text = L"RockPaperScissors";
 			this->Load += gcnew System::EventHandler(this, &RockPaperScissors::RockPaperScissors_Load);

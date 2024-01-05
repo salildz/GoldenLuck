@@ -170,6 +170,7 @@ namespace GoldenLuck {
 			this->Controls->Add(this->txtPassword3);
 			this->Controls->Add(this->txtPassword2);
 			this->Controls->Add(this->txtUsername2);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Register";
 			this->Text = L"Register";
 			this->Load += gcnew System::EventHandler(this, &Register::Register_Load);
