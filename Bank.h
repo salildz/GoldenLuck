@@ -67,16 +67,16 @@ namespace GoldenLuck {
 			// 
 			// lblBalance
 			// 
-			this->lblBalance->AutoSize = true;
 			this->lblBalance->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(162)));
 			this->lblBalance->ForeColor = System::Drawing::Color::Black;
-			this->lblBalance->Location = System::Drawing::Point(199, 9);
-			this->lblBalance->MaximumSize = System::Drawing::Size(133, 25);
+			this->lblBalance->ImageAlign = System::Drawing::ContentAlignment::TopLeft;
+			this->lblBalance->Location = System::Drawing::Point(12, 9);
 			this->lblBalance->Name = L"lblBalance";
-			this->lblBalance->Size = System::Drawing::Size(80, 25);
+			this->lblBalance->Size = System::Drawing::Size(320, 25);
 			this->lblBalance->TabIndex = 0;
 			this->lblBalance->Text = L"Credit: ";
+			this->lblBalance->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
 			// cmbbxBalance
 			// 

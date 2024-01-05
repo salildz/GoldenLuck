@@ -38,7 +38,7 @@ namespace GoldenLuck {
 			else {
 				cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
 			}
-			pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
+			pnlGame->Controls->Add(cardPictureBoxes1[i]); // 
 		}
 
 	}
@@ -573,69 +573,91 @@ namespace GoldenLuck {
 		}
 		return maxNone;
 	}
+	bool Poker::canBet() {
+		if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
+			return true;
+		}
+		else return false;
+	}
 
 	System::Void Poker::btnBet_Click(System::Object^ sender, System::EventArgs^ e) { // after bet it start to check hand and compare them from the vector
-		faceUpDealerHand();
-		int userMax = 0;
-		int dealerMax = 0;
-		std::vector<int> compare;
-		compare.push_back(checkForFirstCard(userHand));
-		compare.push_back(checkForSecondCard(userHand));
-		compare.push_back(checkForBothCard(userHand));
-		userMax = compare.at(0);
-		for (int i = 1; i < 3; i++)
-		{
-			if (compare.at(i) > userMax) {
-				userMax = compare.at(i);
-			}
-		}
-		compare.clear();
-		compare.push_back(checkForFirstCard(dealerHand));
-		compare.push_back(checkForSecondCard(dealerHand));
-		compare.push_back(checkForBothCard(dealerHand));
-		dealerMax = compare.at(0);
-		for (int i = 1; i < 3; i++)
-		{
-			if (compare.at(i) > userMax) {
-				dealerMax = compare.at(i);
-			}
-		}compare.clear();
-		compare.push_back(checkForNone(pokerTableHand));
-
-		if (compare.at(0) > userMax) {
+		labelBalance->Text = "Credit: " + User::credit.ToString();
+		if (canBet()) {
+			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
+			labelBalance->Text = "Credit: " + User::credit.ToString();
+			faceUpDealerHand();
+			int userMax = 0;
+			int dealerMax = 0;
+			std::vector<int> compare;
+			compare.push_back(checkForFirstCard(userHand));
+			compare.push_back(checkForSecondCard(userHand));
+			compare.push_back(checkForBothCard(userHand));
 			userMax = compare.at(0);
-		}
-		compare.push_back(checkForNone(pokerTableHand));
+			for (int i = 1; i < 3; i++)
+			{
+				if (compare.at(i) > userMax) {
+					userMax = compare.at(i);
+				}
+			}
+			compare.clear();
+			compare.push_back(checkForFirstCard(dealerHand));
+			compare.push_back(checkForSecondCard(dealerHand));
+			compare.push_back(checkForBothCard(dealerHand));
+			dealerMax = compare.at(0);
+			for (int i = 1; i < 3; i++)
+			{
+				if (compare.at(i) > userMax) {
+					dealerMax = compare.at(i);
+				}
+			}compare.clear();
+			compare.push_back(checkForNone(pokerTableHand));
 
-		if (compare.at(1) > dealerMax) {
-			dealerMax = compare.at(1);
-		}
-		if (userMax > dealerMax) {
-			lblResult->Text = "You Win!" + userMax + "  " + dealerMax;
-		}
-		else if (userMax < dealerMax) {
-			lblResult->Text = "You Lose!" + userMax + "  " + dealerMax;
-		}
-		else if (userMax == dealerMax) {
-			lblResult->Text = "Tie!" + userMax + "  " + dealerMax;
-		}
+			if (compare.at(0) > userMax) {
+				userMax = compare.at(0);
+			}
+			compare.push_back(checkForNone(pokerTableHand));
 
-		pnlGame->Controls->Add(lblResult);
+			if (compare.at(1) > dealerMax) {
+				dealerMax = compare.at(1);
+			}
+			if (userMax > dealerMax) {
+				lblResult->Text = "You Win!" + userMax + "  " + dealerMax;
 
+				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
 
+				labelBalance->Text = "Credit: " + User::credit.ToString();
+			}
+			else if (userMax < dealerMax) {
+				lblResult->Text = "You Lose!" + userMax + "  " + dealerMax;
+				labelBalance->Text = "Credit: " + User::credit.ToString();
+			}
+			else if (userMax == dealerMax) {
+				lblResult->Text = "Tie!" + userMax + "  " + dealerMax;
+				User::credit += Convert::ToInt32(comboBox->SelectedItem);
+				labelBalance->Text = "Credit: " + User::credit.ToString();
+			}
+
+			pnlGame->Controls->Add(lblResult);
+		}
+		btnBet->Enabled = false;
+		comboBox->Visible = false;
+		btnStart->Enabled = true;
 	}
 
 	System::Void Poker::btnStart_Click(System::Object^ sender, System::EventArgs^ e) { // initialize the game
 		resetGame();
 		pnlGame->Controls->Clear();
+		btnBet->Enabled = true;
+		btnStart->Enabled = false;
+		comboBox->Visible = true;
 		initializeGame();
 		loadDealerCardImages();
 		loadUserCardImages();
 		loadTableCardImages();
+
+
+
+
+
 	}
 }
-
-
-
-
-
