@@ -24,7 +24,7 @@ namespace GoldenLuck {
 	public ref class Login : public System::Windows::Forms::Form
 	{
 	public:
-		String^ finalUsername;
+		String^ finalUsername;														
 		String^ finalPassword;
 
 		Login(void)
@@ -182,10 +182,10 @@ namespace GoldenLuck {
 
 		}
 
-		void Loginfunc() {
-			std::fstream myFile;
-			myFile.open("User.txt", std::ios::in);
-
+		void Loginfunc() {																								//this function opens text file and then checks
+			std::fstream myFile;																						//if the information of the user inside the file is equal
+			myFile.open("User.txt", std::ios::in);																		//to the information inside the textboxes
+				
 			if (myFile.is_open()) {
 				std::string line;
 
@@ -194,27 +194,26 @@ namespace GoldenLuck {
 					std::vector<std::string> parsedline = parseCommaDelimitedString(line);
 					const char* username = parsedline.at(0).c_str();
 
-					std::string editUname = msclr::interop::marshal_as<std::string>(txtUsername1->Text);
-					const char* usernameString = editUname.c_str();
+					std::string editUname = msclr::interop::marshal_as<std::string>(txtUsername1->Text);				//gets the info from the textboxes
+					const char* usernameString = editUname.c_str();														//converts a C++ std::string to a C-style string												
 
-					if (std::strcmp(username, usernameString) == 0) {
+					if (std::strcmp(username, usernameString) == 0) {													//compares usernames
 
 						const char* password = parsedline.at(1).c_str();
 
-						std::string editPword = msclr::interop::marshal_as<std::string>(txtPassword1->Text);
-						const char* passwordString = editPword.c_str();
+						std::string editPword = msclr::interop::marshal_as<std::string>(txtPassword1->Text);			//gets the info from the textboxes
+						const char* passwordString = editPword.c_str();													//converts a C++ std::string to a C-style string
 
-						if (std::strcmp(password, passwordString) == 0) {
+						if (std::strcmp(password, passwordString) == 0) {												//compares passwords
 
-							const char* credit3 = parsedline.at(2).c_str();
-							int credit4 = std::stoi(credit3);
-							User^ user = gcnew User(credit4);
-							//Hides Login
-							this->Hide();
-							//Initializes Main menu
-							MainForm^ mainForm = gcnew MainForm();
-							finalUsername = gcnew String(usernameString);
-							finalPassword = gcnew String(passwordString);
+							const char* credit3 = parsedline.at(2).c_str();												//gets the credit from the text file
+							int credit4 = std::stoi(credit3);															//turns std::string into an int	and
+							User^ user = gcnew User(credit4);															//sends that int value to user							
+							this->Hide();															
+							MainForm^ mainForm = gcnew MainForm();														//Initializes Main menu
+
+							finalUsername = gcnew String(usernameString);												//Use this to give value to the finalUsername
+							finalPassword = gcnew String(passwordString);												//and finalPassword
 
 							mainForm->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Login::GameTerminated);
 							mainForm->Show();
@@ -228,10 +227,10 @@ namespace GoldenLuck {
 		}
 
 
-		std::vector<std::string> parseCommaDelimitedString(std::string line) {
-			std::vector<std::string> result;
-			std::stringstream s_stream(line);
-
+		std::vector<std::string> parseCommaDelimitedString(std::string line) {											//reads from the user text file
+			std::vector<std::string> result;																			//reads till reaches a comma and then stores the substring
+			std::stringstream s_stream(line);																			//inside the result then checks if there are more to read inside
+																														//the file if there is, it continues the loop
 			while (s_stream.good()) {
 				std::string substr;
 				getline(s_stream, substr, ',');
@@ -241,18 +240,16 @@ namespace GoldenLuck {
 		}
 
 #pragma endregion
-	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-		//Shows MainForm again
-		this->Show();
+	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {	
+		this->Show();																											//Shows MainForm again
 	}
-	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-		//Shows MainForm again
-		std::fstream myFile;
-		myFile.open("User.txt", std::ios::out);
-		std::string usernameStr = msclr::interop::marshal_as<std::string>(finalUsername->ToString());
-		std::string passwordStr = msclr::interop::marshal_as<std::string>(finalPassword->ToString());
-
-		myFile << usernameStr << "," << passwordStr << "," << User::credit << "\n";
+	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {				//when the program is terminated
+		std::fstream myFile;																									//saves the data so its not lost
+		myFile.open("User.txt", std::ios::out);																					
+		std::string usernameStr = msclr::interop::marshal_as<std::string>(finalUsername->ToString());							
+		std::string passwordStr = msclr::interop::marshal_as<std::string>(finalPassword->ToString());							
+																																//saves the username of the person that logged out
+		myFile << usernameStr << "," << passwordStr << "," << User::credit << "\n";												//and updates their credits
 		myFile.close();
 
 		this->Close();
@@ -271,7 +268,6 @@ namespace GoldenLuck {
 	private: System::Void btnRegister_Click(System::Object^ sender, System::EventArgs^ e) {
 		//Hides Login
 		this->Hide();
-		//Initializes Poker game
 		Register^ register1 = gcnew Register();
 		register1->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Login::GameClosed);
 		register1->Show();
