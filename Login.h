@@ -185,7 +185,7 @@ namespace GoldenLuck {
 		}
 
 		void Loginfunc() {																								//this function opens text file and then checks
-			std::fstream myFile;																						//if the information of the user inside the file is equal
+			std::ifstream myFile;																						//if the information of the user inside the file is equal
 			myFile.open("User.txt", std::ios::in);																		//to the information inside the textboxes
 				
 			if (myFile.is_open()) {
@@ -240,6 +240,7 @@ namespace GoldenLuck {
 			}
 			return result;
 		}
+
 		void PlayMusic(const char* filePath, bool loop) {
 			// Use SND_ASYNC for asynchronous playback
 			// Use SND_LOOP for looping playback
@@ -253,17 +254,47 @@ namespace GoldenLuck {
 		this->Show();																											//Shows MainForm again
 	}
 		   
-	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {				//when the program is terminated
-		std::fstream myFile;																									//saves the data so its not lost
-		myFile.open("User.txt", std::ios::out);																					
-		std::string usernameStr = msclr::interop::marshal_as<std::string>(finalUsername->ToString());							
-		std::string passwordStr = msclr::interop::marshal_as<std::string>(finalPassword->ToString());							
-																																//saves the username of the person that logged out
-		myFile << usernameStr << "," << passwordStr << "," << User::credit << "\n";												//and updates their credits
-		myFile.close();
+private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {	
+	std::fstream myFile;																										//opens the text file
+	myFile.open("User.txt", std::ios::in | std::ios::out);																		
 
-		this->Close();
+	if (myFile.is_open()) {	
+		std::string line;	
+		std::vector<std::string> UserLines;	
+
+																								
+		while (getline(myFile, line)) {																							//read all lines into a vector
+			UserLines.push_back(line);																							//now we have all the user infos stored in the vector
+		}
+
+																																
+		myFile.seekp(0);																										//moves the file pointer to the first line so we can start putting 
+																																//users info to the lines one by one
+		
+		for (const auto& userLine : UserLines) {																					//iterate till all users are updated
+			std::vector<std::string> parsedline = parseCommaDelimitedString(userLine);
+			const char* username = parsedline.at(0).c_str();
+			const char* password = parsedline.at(1).c_str();
+
+			std::string editUname = msclr::interop::marshal_as<std::string>(finalUsername->ToString());
+			const char* usernameString = editUname.c_str();
+
+			std::string editPword = msclr::interop::marshal_as<std::string>(finalPassword->ToString());
+			const char* passwordString = editPword.c_str();
+
+			if (std::strcmp(username, usernameString) == 0 && std::strcmp(password, passwordString) == 0) {                      //if the user we are looking at is the user that logged out
+				myFile << usernameString << "," << passwordString << "," << User::credit << "\n";							   	 //we update his credit
+			}
+			else {																												 //else we just paste the user into the text file
+				myFile << userLine << "\n";
+			}
+		}
+
+		myFile.close();
 	}
+
+	this->Close();
+}
 	private: System::Void txtPassword1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 
 	}
