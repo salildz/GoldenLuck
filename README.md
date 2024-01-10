@@ -1,6 +1,7 @@
 CLR/C++ Project. Can be compiled by Microsoft Visual Studio.
 
 /Dox              Doxygen files
+
 /Executable       Executable "GoldenLuck.exe" file
 
 To start playing the game you have to register with a name and an age.
