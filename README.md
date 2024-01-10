@@ -62,11 +62,11 @@ Bank has only one function and it is to deposit credit to play games.
 
 Github Link: https://github.com/salildz/GoldenLuck
 
-Salih Yildiz:
+Salih Yildiz
 Created the base of the code. Created BlackJack game. Created bank class. Did the designs of the classes.
-Onur Kahan:
+Onur Kahan
 I coded the Poker game and Bet System for each game.
-Ferit Akyildiz:
+Ferit Akyildiz
 I coded the login and register system.I also coded the Slot game.
-Adnan Arda Simsar:
+Adnan Arda Simsar
 I coded member classes , CoinFlip game , RockPaperScissor game and wrote down the doxygen comments.
