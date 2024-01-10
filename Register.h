@@ -32,6 +32,8 @@ namespace GoldenLuck {
 			//TODO: Add the constructor code here
 			//
 		}
+		void Registerfunc();
+		std::vector<std::string> parseCommaDelimitedString(std::string line);
 
 	protected:
 		/// <summary>
@@ -101,6 +103,7 @@ namespace GoldenLuck {
 			this->txtPassword2->Name = L"txtPassword2";
 			this->txtPassword2->Size = System::Drawing::Size(176, 50);
 			this->txtPassword2->TabIndex = 5;
+			this->txtPassword2->PasswordChar = '*';
 			// 
 			// txtPassword3
 			// 
@@ -113,6 +116,7 @@ namespace GoldenLuck {
 			this->txtPassword3->Name = L"txtPassword3";
 			this->txtPassword3->Size = System::Drawing::Size(176, 50);
 			this->txtPassword3->TabIndex = 6;
+			this->txtPassword3->PasswordChar = '*';
 			// 
 			// chckOver18
 			// 
@@ -178,46 +182,12 @@ namespace GoldenLuck {
 			this->PerformLayout();
 
 		}
-		void Registerfunc() {																																//this function opens the text file 
-																																							//in a way that we can edit the file
-			std::fstream myFile;																															
-			myFile.open("User.txt",std::ios::out | std::ios::app);
-
-			if (txtPassword2->Text != txtPassword3->Text) {																									//checks if the password confirmation 
-				lblError->Text = "Passwords are not the same";																								//is the same as the password
-			}
-			else if (myFile.is_open() && chckOver18->Checked && !String::IsNullOrEmpty(txtUsername2->Text) && !String::IsNullOrEmpty(txtPassword2->Text)) { //checks if the user is above 18
-																																							//and if the textboxes are null or not
-				std::string Uname = msclr::interop::marshal_as<std::string>(txtUsername2->Text);
-				std::string Pword = msclr::interop::marshal_as<std::string>(txtPassword2->Text);
-				myFile << Uname << "," << Pword << "," << "0" << "\n";																						//edits the text file like this vv
-				myFile.close();																																//		Username,Password,Credit
-				this->Close();
-			}
-		}
-
-		std::vector<std::string> parseCommaDelimitedString(std::string line) {											//reads from the user text file
-			std::vector<std::string> result;																			//reads till reaches a comma and then stores the substring
-			std::stringstream s_stream(line);																			//inside the result then checks if there are more to read inside
-																														//the file if there is, it continues the loop
-			while (s_stream.good()) {
-				std::string substr;
-				getline(s_stream, substr, ',');
-				result.push_back(substr);
-			}
-			return result;
-		}
+		
 
 
 
 #pragma endregion
 	private: System::Void Register_Load(System::Object^ sender, System::EventArgs^ e) {
-
-	}
-	private: System::Void txtPassword2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-
-	}
-	private: System::Void txtPassword3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 
 	}
 	private: System::Void btnSignUp_Click(System::Object^ sender, System::EventArgs^ e) {

@@ -1,6 +1,6 @@
 #include "Deck.h"
 
-Deck::Deck() {
+Deck::Deck() { //Creates a normal deck.
     cards = gcnew List<Card^>();
 
     for (int i = 1; i < 14; ++i) {
@@ -19,7 +19,7 @@ Deck::Deck() {
     random = gcnew Random();
 }
 
-void Deck::shuffleDeck() {
+void Deck::shuffleDeck() { //Randomly shuffles the deck.
     Collections::Generic::List<Card^>^ temp = gcnew Collections::Generic::List<Card^>();
 
     while (cards->Count > 0) {
@@ -31,7 +31,7 @@ void Deck::shuffleDeck() {
     cards = temp;
 }
 
-void Deck::resetDeck() {
+void Deck::resetDeck() { //Resets the current deck to a normal deck.
     cards->Clear();
 
     for (int i = 1; i < 14; ++i) {

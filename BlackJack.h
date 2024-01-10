@@ -13,18 +13,13 @@ namespace GoldenLuck {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for BlackJack
-	/// </summary>
 	public ref class BlackJack : public System::Windows::Forms::Form
 	{
 	public:
 		BlackJack(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			this->lblBalance->Text = "Credit: " + User::credit;
 		}
 		Hand^ userHand;
 		Hand^ dealerHand;
@@ -51,6 +46,12 @@ namespace GoldenLuck {
 		int reduceDealerAce();
 		int reduceUserAce();
 		bool isBlackJack(Hand^ hand);
+		void printCredit();
+		void loadDealerCardImages();
+		void loadUserCardImages();
+		void endGame();
+		void faceUpDealerHand();
+		bool canBet();
 
 	protected:
 		/// <summary>
@@ -247,151 +248,32 @@ namespace GoldenLuck {
 			this->ResumeLayout(false);
 
 		}
-		void loadDealerCardImages()
-		{
-			array<PictureBox^>^ cardPictureBoxes1 = gcnew array<PictureBox^>(dealerHand->getHand()->Count);
-
-			// PictureBox kontrollerine resim atanmasý
-			for (int i = 0; i < dealerHand->getHand()->Count; i++)
-			{
-				cardPictureBoxes1[i] = gcnew PictureBox();
-				cardPictureBoxes1[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBoxes1[i]->Location = Point(i * 110, 10); // PictureBox'larýn konumu
-				cardPictureBoxes1[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
-
-				if (dealerHand->getHand()[i]->isFaceUp()) {
-					if (i == 0) {
-						pnlGame->Controls->RemoveAt(0);
-					}
-					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\" + dealerHand->getHand()[i]->getRank() + "-" + dealerHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-				}
-				else {
-					cardPictureBoxes1[i]->Image = Image::FromFile("cards\\BACK.png");
-				}
-				pnlGame->Controls->Add(cardPictureBoxes1[i]); // PictureBox'larý pnlGame panele ekler
-			}
-
-			pnlGame->Controls->Add(lblDealer);
-			if (dealerHand->getHand()[0]->isFaceUp()) {
-				lblDealer->Text = "Dealer: " + reduceDealerAce();
-			}
-			else {
-				lblDealer->Text = "Dealer: " + dealerHand->getSumForDealer();
-			}
-
-
-
-		}
-
-		void loadUserCardImages()
-		{
-
-			array<PictureBox^>^ cardPictureBoxes2 = gcnew array<PictureBox^>(userHand->getHand()->Count);
-
-			// PictureBox kontrollerine resim atanmasý
-			for (int i = 0; i < userHand->getHand()->Count; i++)
-			{
-				cardPictureBoxes2[i] = gcnew PictureBox();
-				cardPictureBoxes2[i]->SizeMode = PictureBoxSizeMode::Zoom; // Resmi PictureBox boyutuna sýðacak þekilde ayarlar
-				cardPictureBoxes2[i]->Location = Point(i * 110, 366); // PictureBox'larýn konumu
-				cardPictureBoxes2[i]->Size = System::Drawing::Size(110, 154); // PictureBox'larýn boyutu
-				cardPictureBoxes2[i]->Image = Image::FromFile("cards\\" + userHand->getHand()[i]->getRank() + "-" + userHand->getHand()[i]->getSuit() + ".png"); // Resmi PictureBox'a atar
-				pnlGame->Controls->Add(cardPictureBoxes2[i]); // PictureBox'larý pnlGame panele ekler
-
-			}
-			pnlGame->Controls->Add(lblUser);
-			if (userHand->getSum() > 21) {
-				lblUser->Text = "User: " + reduceUserAce();
-			}
-			else {
-				lblUser->Text = "User: " + userHand->getSum();
-			}
-
-		}
-		void endGame() {
-			if (reduceUserAce() > 21) {
-				lblResult->Text = "You Lose!";
-				btnHit->Enabled = false;
-				btnStay->Enabled = false;
-				faceUpDealerHand();
-				lblBalance->Text = "Credit: " + User::credit.ToString();
-			}
-			else if (reduceDealerAce() > 21) {
-				lblResult->Text = "You Win!";
-				btnHit->Enabled = false;
-				btnStay->Enabled = false;
-				faceUpDealerHand();
-				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
-				lblBalance->Text = "Credit: " + User::credit.ToString();
-			}
-			else if (reduceUserAce() == reduceDealerAce()) {
-				lblResult->Text = "Tie!";
-				btnHit->Enabled = false;
-				btnStay->Enabled = false;
-				faceUpDealerHand();
-				User::credit += Convert::ToInt32(comboBox->SelectedItem);
-				lblBalance->Text = "Credit: " + User::credit.ToString();
-			}
-			else if (reduceUserAce() > reduceDealerAce()) {
-				lblResult->Text = "You Win!";
-				btnHit->Enabled = false;
-				btnStay->Enabled = false;
-				faceUpDealerHand();
-				User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2;
-				lblBalance->Text = "Credit: " + User::credit.ToString();
-			}
-			else if (reduceUserAce() < reduceDealerAce()) {
-				lblResult->Text = "You Lose!";
-				btnHit->Enabled = false;
-				btnStay->Enabled = false;
-				faceUpDealerHand();
-				lblBalance->Text = "Credit: " + User::credit.ToString();
-
-			}
-			pnlGame->Controls->Add(lblResult);
-			btnStart->Enabled = true;
-			comboBox->Visible = true;
-		}
-		void faceUpDealerHand() {
-			dealerHand->getHand()[0]->makeVisible();
-
-			loadDealerCardImages();
-			loadUserCardImages();
-			pnlGame->Refresh();
-		}
-
-		bool canBet() {
-			if (Convert::ToInt32(comboBox->SelectedItem) <= User::credit) {
-				return true;
-			}
-			else return false;
-		}
+		
 #pragma endregion
 	private: System::Void BlackJack_Load(System::Object^ sender, System::EventArgs^ e) {
 		btnHit->Visible = false;
 		btnStay->Visible = false;
 		lblDealer->Visible = false;
 		lblUser->Visible = false;
-		lblBalance->Visible = false;
+		lblBalance->Visible = true;
 
 	}
 
-	private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) { //Resets the game window. Checks for the parameters such as credit. If everything is good. Starts the game by calling initializegame function.
 		resetGame();
 		if (canBet()) {
 			pnlGame->Controls->Clear();
 			btnStart->Enabled = false;
 			comboBox->Visible = false;
+
 			btnHit->Visible = true;
 			btnStay->Visible = true;
 			lblDealer->Visible = true;
 			lblUser->Visible = true;
 			btnHit->Enabled = true;
 			btnStay->Enabled = true;
-			lblBalance->Visible = true;
-			lblBalance->Text = "Credit: " + User::credit.ToString();
 			User::credit -= Convert::ToInt32(comboBox->SelectedItem);
-			lblBalance->Text = "Credit: " + User::credit.ToString();
+			printCredit();
 			initializeGame();
 			loadDealerCardImages();
 			loadUserCardImages();
@@ -401,18 +283,18 @@ namespace GoldenLuck {
 
 		}
 		else {
-			lblResult->Text = "You don't have enough credit.";
+			lblResult->Text = "Not Enough!";
 			lblResult->Show();
 		}
 	}
-	private: System::Void btnHit_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnHit_Click(System::Object^ sender, System::EventArgs^ e) { //Deals a card for the user. Then checks if user's hand is blackjack.
 		if (reduceUserAce() < 21) {
 			dealCard(userHand);
 			loadUserCardImages();
 		}
 		if (reduceUserAce() == 21) {
 			User::credit += Convert::ToInt32(comboBox->SelectedItem) * 2.5;
-			lblBalance->Text = "Credit: " + User::credit.ToString();
+			printCredit();
 			endGame();
 		}
 		else if (reduceUserAce() > 21) {
@@ -420,7 +302,7 @@ namespace GoldenLuck {
 			endGame();
 		}
 	}
-	private: System::Void btnStay_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnStay_Click(System::Object^ sender, System::EventArgs^ e) { //If user decides to stay, dealer hidden card faces up. Then, deals card for the dealer until dealers hand sum >=16.
 		btnHit->Enabled = false;
 		btnStay->Enabled = false;
 		faceUpDealerHand();

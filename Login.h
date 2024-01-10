@@ -25,7 +25,7 @@ namespace GoldenLuck {
 	public ref class Login : public System::Windows::Forms::Form
 	{
 	public:
-		String^ finalUsername;														
+		String^ finalUsername;
 		String^ finalPassword;
 
 		Login(void)
@@ -35,6 +35,9 @@ namespace GoldenLuck {
 			//TODO: Add the constructor code here
 			//
 		}
+		void Login::Loginfunc();
+		std::vector<std::string> parseCommaDelimitedString(std::string line);
+		void PlayMusic(const char* filePath, bool loop);
 
 	protected:
 		/// <summary>
@@ -152,6 +155,7 @@ namespace GoldenLuck {
 			this->txtPassword1->Name = L"txtPassword1";
 			this->txtPassword1->Size = System::Drawing::Size(176, 50);
 			this->txtPassword1->TabIndex = 4;
+			this->txtPassword1->PasswordChar = '*';
 			// 
 			// lblError
 			// 
@@ -184,119 +188,58 @@ namespace GoldenLuck {
 
 		}
 
-		void Loginfunc() {																								//this function opens text file and then checks
-			std::ifstream myFile;																						//if the information of the user inside the file is equal
-			myFile.open("User.txt", std::ios::in);																		//to the information inside the textboxes
-				
-			if (myFile.is_open()) {
-				std::string line;
-
-				while (getline(myFile, line)) {
-
-					std::vector<std::string> parsedline = parseCommaDelimitedString(line);
-					const char* username = parsedline.at(0).c_str();
-
-					std::string editUname = msclr::interop::marshal_as<std::string>(txtUsername1->Text);				//gets the info from the textboxes
-					const char* usernameString = editUname.c_str();														//converts a C++ std::string to a C-style string												
-
-					if (std::strcmp(username, usernameString) == 0) {													//compares usernames
-
-						const char* password = parsedline.at(1).c_str();
-
-						std::string editPword = msclr::interop::marshal_as<std::string>(txtPassword1->Text);			//gets the info from the textboxes
-						const char* passwordString = editPword.c_str();													//converts a C++ std::string to a C-style string
-
-						if (std::strcmp(password, passwordString) == 0) {												//compares passwords
-
-							const char* credit3 = parsedline.at(2).c_str();												//gets the credit from the text file
-							int credit4 = std::stoi(credit3);															//turns std::string into an int	and
-							User^ user = gcnew User(credit4);															//sends that int value to user							
-							this->Hide();															
-							MainForm^ mainForm = gcnew MainForm();														//Initializes Main menu
-
-							finalUsername = gcnew String(usernameString);												//Use this to give value to the finalUsername
-							finalPassword = gcnew String(passwordString);												//and finalPassword
-
-							mainForm->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Login::GameTerminated);
-							mainForm->Show();
-						}
-						else {
-							lblError->Text = "Wrong Password!";
-						}
-					}
-				}
-			}
-		}
+		
 
 
-		std::vector<std::string> parseCommaDelimitedString(std::string line) {											//reads from the user text file
-			std::vector<std::string> result;																			//reads till reaches a comma and then stores the substring
-			std::stringstream s_stream(line);																			//inside the result then checks if there are more to read inside
-																														//the file if there is, it continues the loop
-			while (s_stream.good()) {
-				std::string substr;
-				getline(s_stream, substr, ',');
-				result.push_back(substr);
-			}
-			return result;
-		}
+		
 
-		void PlayMusic(const char* filePath, bool loop) {
-			// Use SND_ASYNC for asynchronous playback
-			// Use SND_LOOP for looping playback
-			UINT flags = SND_ASYNC | (loop ? SND_LOOP : 0);
-
-			PlaySoundA(filePath, NULL, flags);
-		}
+		
 
 #pragma endregion
-	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {	
+	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
 		this->Show();																											//Shows MainForm again
 	}
-		   
-private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {	
-	std::fstream myFile;																										//opens the text file
-	myFile.open("User.txt", std::ios::in | std::ios::out);																		
 
-	if (myFile.is_open()) {	
-		std::string line;	
-		std::vector<std::string> UserLines;	
+	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
+		std::fstream myFile;																										//opens the text file
+		myFile.open("User.txt", std::ios::in | std::ios::out);
 
-																								
-		while (getline(myFile, line)) {																							//read all lines into a vector
-			UserLines.push_back(line);																							//now we have all the user infos stored in the vector
+		if (myFile.is_open()) {
+			std::string line;
+			std::vector<std::string> UserLines;
+
+
+			while (getline(myFile, line)) {																							//read all lines into a vector
+				UserLines.push_back(line);																							//now we have all the user infos stored in the vector
+			}
+
+			myFile.clear();																											//clears the text file so the credits can be updated
+			myFile.seekp(0);																										//moves the file pointer to the first line so we can start putting 
+			//users info to the lines one by one
+
+			for (const auto& userLine : UserLines) {																					//iterate till all users are updated
+				std::vector<std::string> parsedline = parseCommaDelimitedString(userLine);
+				const char* username = parsedline.at(0).c_str();
+				const char* password = parsedline.at(1).c_str();
+
+				std::string editUname = msclr::interop::marshal_as<std::string>(finalUsername->ToString());
+				const char* usernameString = editUname.c_str();
+
+				std::string editPword = msclr::interop::marshal_as<std::string>(finalPassword->ToString());
+				const char* passwordString = editPword.c_str();
+
+				if (std::strcmp(username, usernameString) == 0 && std::strcmp(password, passwordString) == 0) {                      //if the user we are looking at is the user that logged out
+					myFile << usernameString << "," << passwordString << "," << User::credit << "\n";							   	 //we update his credit
+				}
+				else {																												 //else we just paste the user into the text file
+					myFile << userLine << "\n";
+				}
+			}
+
+			myFile.close();
 		}
 
-		myFile.clear();																											//clears the text file so the credits can be updated
-		myFile.seekp(0);																										//moves the file pointer to the first line so we can start putting 
-																																//users info to the lines one by one
-		
-		for (const auto& userLine : UserLines) {																					//iterate till all users are updated
-			std::vector<std::string> parsedline = parseCommaDelimitedString(userLine);
-			const char* username = parsedline.at(0).c_str();
-			const char* password = parsedline.at(1).c_str();
-
-			std::string editUname = msclr::interop::marshal_as<std::string>(finalUsername->ToString());
-			const char* usernameString = editUname.c_str();
-
-			std::string editPword = msclr::interop::marshal_as<std::string>(finalPassword->ToString());
-			const char* passwordString = editPword.c_str();
-
-			if (std::strcmp(username, usernameString) == 0 && std::strcmp(password, passwordString) == 0) {                      //if the user we are looking at is the user that logged out
-				myFile << usernameString << "," << passwordString << "," << User::credit << "\n";							   	 //we update his credit
-			}
-			else {																												 //else we just paste the user into the text file
-				myFile << userLine << "\n";
-			}
-		}
-
-		myFile.close();
-	}
-
-	this->Close();
-}
-	private: System::Void txtPassword1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-
+		this->Close();
 	}
 
 	private: System::Void Login_Load(System::Object^ sender, System::EventArgs^ e) {

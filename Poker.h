@@ -19,6 +19,7 @@ namespace GoldenLuck {
 		Poker(void)
 		{
 			InitializeComponent();
+			this->labelBalance->Text = "Credit: " + User::credit;
 		}
 		Hand^ userHand;
 		Hand^ dealerHand;
