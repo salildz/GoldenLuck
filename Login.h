@@ -267,7 +267,7 @@ private: System::Void GameTerminated(System::Object^ sender, System::Windows::Fo
 			UserLines.push_back(line);																							//now we have all the user infos stored in the vector
 		}
 
-																																
+		myFile.clear();																											//clears the text file so the credits can be updated
 		myFile.seekp(0);																										//moves the file pointer to the first line so we can start putting 
 																																//users info to the lines one by one
 		
