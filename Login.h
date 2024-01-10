@@ -188,12 +188,12 @@ namespace GoldenLuck {
 
 		}
 
-		
 
 
-		
 
-		
+
+
+
 
 #pragma endregion
 	private: System::Void GameClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -201,45 +201,37 @@ namespace GoldenLuck {
 	}
 
 	private: System::Void GameTerminated(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-		std::fstream myFile;																										//opens the text file
-		myFile.open("User.txt", std::ios::in | std::ios::out);
+		std::ifstream inFile("User.txt");																						//Use ifstream for reading
+		std::ofstream outFile("Temp_User.txt");																					//Use ofstream for writing to a temporary file
 
-		if (myFile.is_open()) {
+		if (inFile.is_open() && outFile.is_open()) {
 			std::string line;
-			std::vector<std::string> UserLines;
 
-
-			while (getline(myFile, line)) {																							//read all lines into a vector
-				UserLines.push_back(line);																							//now we have all the user infos stored in the vector
-			}
-
-			myFile.clear();																											//clears the text file so the credits can be updated
-			myFile.seekp(0);																										//moves the file pointer to the first line so we can start putting 
-			//users info to the lines one by one
-
-			for (const auto& userLine : UserLines) {																					//iterate till all users are updated
-				std::vector<std::string> parsedline = parseCommaDelimitedString(userLine);
-				const char* username = parsedline.at(0).c_str();
-				const char* password = parsedline.at(1).c_str();
+			while (getline(inFile, line)) {
+				std::vector<std::string> parsedline = parseCommaDelimitedString(line);
+				std::string username = parsedline.at(0);
+				std::string password = parsedline.at(1);
 
 				std::string editUname = msclr::interop::marshal_as<std::string>(finalUsername->ToString());
-				const char* usernameString = editUname.c_str();
-
 				std::string editPword = msclr::interop::marshal_as<std::string>(finalPassword->ToString());
-				const char* passwordString = editPword.c_str();
 
-				if (std::strcmp(username, usernameString) == 0 && std::strcmp(password, passwordString) == 0) {                      //if the user we are looking at is the user that logged out
-					myFile << usernameString << "," << passwordString << "," << User::credit << "\n";							   	 //we update his credit
+				if (username == editUname && password == editPword) {
+					outFile << editUname << "," << editPword << "," << User::credit << "\n";
 				}
-				else {																												 //else we just paste the user into the text file
-					myFile << userLine << "\n";
+				else {
+					outFile << line << "\n";
 				}
 			}
 
-			myFile.close();
+			inFile.close();
+			outFile.close();
+
+																																//Rename or replace the original file with the updated file
+			std::remove("User.txt");
+			std::rename("Temp_User.txt", "User.txt");
 		}
 
-		this->Close();
+		this->Close();																											//Close the form after updating the file
 	}
 
 	private: System::Void Login_Load(System::Object^ sender, System::EventArgs^ e) {

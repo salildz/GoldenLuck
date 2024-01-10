@@ -67,6 +67,7 @@ namespace GoldenLuck {
 			// 
 			// lblBalance
 			// 
+			this->lblBalance->BackColor = System::Drawing::Color::Transparent;
 			this->lblBalance->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(162)));
 			this->lblBalance->ForeColor = System::Drawing::Color::Black;
@@ -166,6 +167,7 @@ namespace GoldenLuck {
 
 	}
 	private: System::Void Bank_Load(System::Object^ sender, System::EventArgs^ e) {
+		cmbbxBalance->Text = "100";
 	}
 };
 }

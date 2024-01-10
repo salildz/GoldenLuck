@@ -1,8 +1,1 @@
-Salih,123,6000
-Ferit,123,0
-Onur,123,0
-Adnan,123,0
-Abdullah,123,0
-
-
-sa,as,0
+sa,as,1000
