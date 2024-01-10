@@ -94,6 +94,7 @@ namespace GoldenLuck {
 			// 
 			// pnlGame
 			// 
+			this->pnlGame->BackColor = System::Drawing::Color::Transparent;
 			this->pnlGame->Controls->Add(this->lblResult);
 			this->pnlGame->Location = System::Drawing::Point(12, 12);
 			this->pnlGame->Name = L"pnlGame";
@@ -170,6 +171,9 @@ namespace GoldenLuck {
 			// 
 			// labelBalance
 			// 
+			this->labelBalance->BackColor = System::Drawing::Color::Transparent;
+			this->labelBalance->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F));
+			this->labelBalance->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->labelBalance->Location = System::Drawing::Point(741, 569);
 			this->labelBalance->Name = L"labelBalance";
 			this->labelBalance->Size = System::Drawing::Size(142, 49);
@@ -181,6 +185,7 @@ namespace GoldenLuck {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(181)), static_cast<System::Int32>(static_cast<System::Byte>(203)),
 				static_cast<System::Int32>(static_cast<System::Byte>(225)));
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(944, 681);
 			this->Controls->Add(this->labelBalance);
 			this->Controls->Add(this->comboBox);
