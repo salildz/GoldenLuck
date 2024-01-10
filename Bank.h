@@ -156,7 +156,6 @@ namespace GoldenLuck {
 			int selectedAmount = Int32::Parse(selectedValue);
 			if ((User::credit + selectedAmount) > 10000) {
 				this->Controls->Add(this->lblError);
-				btnAdd->Enabled = false;
 			}
 			else {
 				User::credit += selectedAmount;

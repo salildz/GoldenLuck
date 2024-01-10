@@ -181,7 +181,7 @@ namespace GoldenLuck {
 		void Registerfunc() {																																//this function opens the text file 
 																																							//in a way that we can edit the file
 			std::fstream myFile;																															
-			myFile.open("User.txt", std::ios::out);
+			myFile.open("User.txt",std::ios::out | std::ios::app);
 
 			if (txtPassword2->Text != txtPassword3->Text) {																									//checks if the password confirmation 
 				lblError->Text = "Passwords are not the same";																								//is the same as the password

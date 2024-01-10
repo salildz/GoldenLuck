@@ -1,1 +1,6 @@
-31,31,0
+Salih,123,6000
+Hamko,123,0
+Ferit,123,0
+Ahmet,123,0
+Abdullah,123,0
+Ahmet,123,0
