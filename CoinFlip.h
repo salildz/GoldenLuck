@@ -29,6 +29,8 @@ namespace GoldenLuck {
 
 	public:
 		int coinChoice;
+	private: System::Windows::Forms::Label^ label2;
+	public:
 		int pChoice;
 		bool canBet();
 		void loadResult();
@@ -84,6 +86,7 @@ namespace GoldenLuck {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->buttonBet = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->resultBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -155,6 +158,14 @@ namespace GoldenLuck {
 			this->buttonBet->UseVisualStyleBackColor = true;
 			this->buttonBet->Click += gcnew System::EventHandler(this, &CoinFlip::buttonBet_Click);
 			// 
+			// label2
+			// 
+			this->label2->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 20.5F));
+			this->label2->Location = System::Drawing::Point(740, 486);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(192, 55);
+			this->label2->TabIndex = 6;
+			// 
 			// CoinFlip
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -162,6 +173,7 @@ namespace GoldenLuck {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)), static_cast<System::Int32>(static_cast<System::Byte>(216)),
 				static_cast<System::Int32>(static_cast<System::Byte>(224)));
 			this->ClientSize = System::Drawing::Size(944, 681);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->buttonBet);
 			this->Controls->Add(this->comboBox);
 			this->Controls->Add(this->label1);
