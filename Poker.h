@@ -210,7 +210,7 @@ namespace GoldenLuck {
 
 #pragma endregion
 	private: System::Void Poker_Load(System::Object^ sender, System::EventArgs^ e) {
-
+		btnBet->Enabled = false;
 	}
 	};
 

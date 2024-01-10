@@ -1,0 +1,180 @@
+  GoldenLuck.Bank.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.BlackJack.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.CoinFlip.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.Login.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.MainForm.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.Poker.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.Register.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.RockPaperScissors.resources - Embedded, ContainedInManifestFile, 
+  GoldenLuck.Slot.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly GoldenLuck, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.VisualBasic.Compatibility, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly stdole, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class GoldenLuck.Bank: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Card: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Char, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    getSuit(): PrivateScope, Public, HideBySig
+    setSuit(Char(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    getRank(): PrivateScope, Public, HideBySig
+    setRank(Int32): PrivateScope, Public, HideBySig
+    makeHidden(): PrivateScope, Public, HideBySig
+    makeVisible(): PrivateScope, Public, HideBySig
+    isFaceUp(): PrivateScope, Public, HideBySig
+Class Deck: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Collections.Generic.List`1[Card] cards : Public
+  Methods:
+    shuffleDeck(): PrivateScope, Public, HideBySig
+    resetDeck(): PrivateScope, Public, HideBySig
+Class Hand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    addCardToHand(Card): PrivateScope, Public, HideBySig
+    getSum(): PrivateScope, Public, HideBySig
+    addSum(Int32): PrivateScope, Public, HideBySig
+    getAceCount(): PrivateScope, Public, HideBySig
+    addAceCount(Int32): PrivateScope, Public, HideBySig
+    resetHand(): PrivateScope, Public, HideBySig
+    getHand(): PrivateScope, Public, HideBySig
+    getSumForDealer(): PrivateScope, Public, HideBySig
+Class GoldenLuck.BlackJack: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Hand userHand : Public
+    Hand dealerHand : Public
+    Deck deck : Public
+    Int32 bet : Public
+  Methods:
+    initializeGame(): PrivateScope, Public, HideBySig
+    resetGame(): PrivateScope, Public, HideBySig
+    dealHiddenCard(Hand): PrivateScope, Public, HideBySig
+    dealCard(Hand): PrivateScope, Public, HideBySig
+    reduceDealerAce(): PrivateScope, Public, HideBySig
+    reduceUserAce(): PrivateScope, Public, HideBySig
+    isBlackJack(Hand): PrivateScope, Public, HideBySig
+    printCredit(): PrivateScope, Public, HideBySig
+    loadDealerCardImages(): PrivateScope, Public, HideBySig
+    loadUserCardImages(): PrivateScope, Public, HideBySig
+    endGame(): PrivateScope, Public, HideBySig
+    faceUpDealerHand(): PrivateScope, Public, HideBySig
+    canBet(): PrivateScope, Public, HideBySig
+Class GoldenLuck.CoinFlip: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 coinChoice : Public
+    Int32 pChoice : Public
+  Methods:
+    coinFlip(): PrivateScope, Public, HideBySig
+    coinResult(): PrivateScope, Public, HideBySig
+    canBet(): PrivateScope, Public, HideBySig
+    loadResult(): PrivateScope, Public, HideBySig
+    resetGame(): PrivateScope, Public, HideBySig
+    CoinFlip_Load(Object, EventArgs): PrivateScope, Public, HideBySig
+    buttonBet_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    headsBtn_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    tailsBtn_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+Class GoldenLuck.Poker: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Hand userHand : Public
+    Hand dealerHand : Public
+    Hand pokerTableHand : Public
+    System.Windows.Forms.Label labelBalance : Public
+    Deck deck : Public
+    Int32 bet : Public
+  Methods:
+    checkForFirstCard(Hand): PrivateScope, Public, HideBySig
+    checkForSecondCard(Hand): PrivateScope, Public, HideBySig
+    checkForBothCard(Hand): PrivateScope, Public, HideBySig
+    initializeGame(): PrivateScope, Public, HideBySig
+    resetGame(): PrivateScope, Public, HideBySig
+    dealHiddenCard(Hand): PrivateScope, Public, HideBySig
+    dealCard(Hand): PrivateScope, Public, HideBySig
+    checkOnePair(Hand): PrivateScope, Public, HideBySig
+    checkTwoPair(Hand): PrivateScope, Public, HideBySig
+    checkHighCard(Hand): PrivateScope, Public, HideBySig
+    checkThreeOfKind(Hand): PrivateScope, Public, HideBySig
+    checkStraight(Hand): PrivateScope, Public, HideBySig
+    checkFlush(Hand): PrivateScope, Public, HideBySig
+    checkFullHouse(Hand): PrivateScope, Public, HideBySig
+    checkFourOfKind(Hand): PrivateScope, Public, HideBySig
+    checkStraightFlush(Hand): PrivateScope, Public, HideBySig
+    checkRoyalFlush(Hand): PrivateScope, Public, HideBySig
+    sortForRank(Hand): PrivateScope, Public, HideBySig
+    btnBet_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    btnStart_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    loadDealerCardImages(): PrivateScope, Public, HideBySig
+    loadUserCardImages(): PrivateScope, Public, HideBySig
+    loadTableCardImages(): PrivateScope, Public, HideBySig
+    endGame(): PrivateScope, Public, HideBySig
+    faceUpDealerHand(): PrivateScope, Public, HideBySig
+    checkForNone(Hand): PrivateScope, Public, HideBySig
+    canBet(): PrivateScope, Public, HideBySig
+Class GoldenLuck.RockPaperScissors: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    canBet(): PrivateScope, Public, HideBySig
+    Dchoicegenerator(): PrivateScope, Public, HideBySig
+    playRPSround(): PrivateScope, Public, HideBySig
+    calculatescore(): PrivateScope, Public, HideBySig
+Class GoldenLuck.Slot: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    playSlot(): PrivateScope, Public, HideBySig
+    Slot_Load(Object, EventArgs): PrivateScope, Public, HideBySig
+    checkRoll(Int32, Int32, Int32): PrivateScope, Public, HideBySig
+    btnRoll_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    SlotRoll(Int32* IsImplicitlyDereferenced, PictureBox): PrivateScope, Public, HideBySig
+    canBet(): PrivateScope, Public, HideBySig
+    SlotAnimation(Int32* IsImplicitlyDereferenced, PictureBox): PrivateScope, Public, HideBySig
+Class GoldenLuck.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GoldenLuck.Register: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Registerfunc(): PrivateScope, Public, HideBySig
+    parseCommaDelimitedString(vector<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,std::allocator<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > > >*, basic_string<char\,std::char_traits<char>\,std::allocator<char> >*): PrivateScope, Public, HideBySig
+Class GoldenLuck.Login: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String finalUsername : Public
+    System.String finalPassword : Public
+  Methods:
+    Loginfunc(): PrivateScope, Public, HideBySig
+    parseCommaDelimitedString(vector<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,std::allocator<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > > >*, basic_string<char\,std::char_traits<char>\,std::allocator<char> >*): PrivateScope, Public, HideBySig
+    PlayMusic(SByte*, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig

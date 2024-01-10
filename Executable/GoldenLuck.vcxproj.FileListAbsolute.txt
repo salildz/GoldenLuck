@@ -1,0 +1,16 @@
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.vcxproj.AssemblyReference.cache
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.Bank.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.BlackJack.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.CoinFlip.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.Login.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.MainForm.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.Poker.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.Register.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.RockPaperScissors.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.Slot.resources
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.vcxproj.GenerateResource.cache
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.vcxproj.CopyComplete
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\GoldenLuck.exe
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\stdole.dll
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\Microsoft.VisualStudio.Interop.dll
+C:\Users\salih\source\repos\GoldenLuck\x64\Release\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll
