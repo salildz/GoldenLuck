@@ -67,5 +67,5 @@ Created the base of the code. Created BlackJack game. Created bank class. Did th
 Onur Kahan:
 Created Poker game. Created the bet system.
 Ferit Akyildiz:
-Created the login, register system. Created the Slot game.
+I coded the login and register system.I also coded the Slot game.
 Adnan Arda Simsar:
