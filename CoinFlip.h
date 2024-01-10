@@ -161,10 +161,12 @@ namespace GoldenLuck {
 			// label2
 			// 
 			this->label2->Font = (gcnew System::Drawing::Font(L"Segoe UI Black", 20.5F));
-			this->label2->Location = System::Drawing::Point(740, 486);
+			this->label2->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->label2->Location = System::Drawing::Point(628, 593);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(192, 55);
+			this->label2->Size = System::Drawing::Size(304, 55);
 			this->label2->TabIndex = 6;
+			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
 			// CoinFlip
 			// 
