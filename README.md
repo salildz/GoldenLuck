@@ -65,7 +65,7 @@ Github Link: https://github.com/salildz/GoldenLuck
 Salih Yildiz:
 Created the base of the code. Created BlackJack game. Created bank class. Did the designs of the classes.
 Onur Kahan:
-I coded the Poker game and Bet System for each game.
+I coded the Poker game and Bet System for each game
 Ferit Akyildiz:
 I coded the login and register system.I also coded the Slot game.
 Adnan Arda Simsar:
