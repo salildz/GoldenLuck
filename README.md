@@ -76,6 +76,8 @@ Adnan Arda Simsar:
 I coded member classes, CoinFlip game, RockPaperScissor game and wrote down the doxygen comments.
 
 We worked together at all stages and solved the errors in our code together with the power of good friendship through the whole process.
+
+
 LOGIN PANEL
 
 ![image](https://github.com/salildz/GoldenLuck/assets/128113106/b10ac28f-065c-4200-a502-1cbcc63d8055)
