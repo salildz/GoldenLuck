@@ -79,9 +79,11 @@ We worked together at all stages and solved the errors in our code together wi
 LOGIN PANEL
 
 ![image](https://github.com/salildz/GoldenLuck/assets/128113106/b10ac28f-065c-4200-a502-1cbcc63d8055)
+
 REGISTER PANEL
 
 ![image](https://github.com/salildz/GoldenLuck/assets/128113106/d3f209c3-6b87-42b8-a143-e7e315f96f38)
+
 MAIN MENU
 
 ![image](https://github.com/salildz/GoldenLuck/assets/128113106/a62c64dd-bccb-461b-bed4-c145090f8619)
